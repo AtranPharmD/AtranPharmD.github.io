@@ -38,6 +38,10 @@
   .brand-badge{width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
   .nav-links{display:flex;gap:26px;font-size:14px;color:var(--text-secondary);}
   .nav-links a:hover{color:var(--navy);}
+  .nav-cv-link{display:none;}
+  .nav-toggle-checkbox{display:none;}
+  .nav-toggle-label{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;cursor:pointer;}
+  .nav-toggle-label span{display:block;width:100%;height:2px;background:var(--text-primary);border-radius:2px;transition:transform .2s ease,opacity .2s ease;}
   .btn{
     display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;
     font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;
@@ -169,6 +173,17 @@
     .residency-grid{grid-template-columns:1fr;}
   }
   @media (max-width:760px){
+    nav .wrap{flex-wrap:wrap;padding:12px 20px;}
+    .nav-toggle-label{display:flex;order:2;}
+    .nav-cv-btn{display:none;}
+    .nav-links{
+      display:none;order:4;flex-basis:100%;width:100%;
+      flex-direction:column;gap:0;margin-top:12px;padding-top:8px;border-top:1px solid var(--border);
+    }
+    .nav-toggle-checkbox:checked ~ .nav-links{display:flex;}
+    .nav-links a{padding:12px 4px;border-bottom:1px solid var(--border);}
+    .nav-cv-link{display:block;color:var(--navy);font-weight:700;}
+    .wrap{padding:0 20px;}
     .hero-grid{grid-template-columns:1fr;}
     .hero-photo{order:-1;max-width:220px;}
     .stats-grid{grid-template-columns:repeat(2,1fr);}
@@ -189,6 +204,8 @@
 <nav>
   <div class="wrap">
     <div class="brand"><span class="brand-badge">AT</span> Andrew Tran, PharmD</div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu"><span></span><span></span><span></span></label>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#what-i-do">What I Do</a>
@@ -196,8 +213,9 @@
       <a href="#presentations">Presentations</a>
       <a href="#residency">Residency</a>
       <a href="#contact">Contact</a>
+      <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="nav-cv-link">Download CV</a>
     </div>
-    <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Download CV</a>
+    <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-sm nav-cv-btn">Download CV</a>
   </div>
 </nav>
 
