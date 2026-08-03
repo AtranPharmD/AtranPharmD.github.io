@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrew Tran, PharmD | Clinical Pharmacist</title>
+<meta name="description" content="Andrew Tran, PharmD, BCACP, CDCES — Clinical Pharmacist specializing in ambulatory care, chronic disease management, and clinical tools & informatics.">
+<style>
+  :root{
+    --navy:#0f3a5c;
+    --navy-dark:#0a2740;
+    --text-primary:#1a2b3a;
+    --text-secondary:#4a5a68;
+    --text-muted:#7a8590;
+    --border:#e2e6ea;
+    --card-bg:#ffffff;
+    --page-bg:#f7f9fb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    color:var(--text-primary);
+    background:var(--page-bg);
+    line-height:1.6;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  img{max-width:100%;display:block;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:#ffffffee;backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--text-primary);font-size:15px;}
+  .brand-badge{width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+  .nav-links{display:flex;gap:26px;font-size:14px;color:var(--text-secondary);}
+  .nav-links a:hover{color:var(--navy);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;
+    font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--navy);color:#fff;}
+  .btn-primary:hover{background:var(--navy-dark);}
+  .btn-ghost{background:transparent;color:var(--navy);border:1px solid var(--navy);}
+  .btn-ghost:hover{background:#eef4f8;}
+  .btn-sm{padding:7px 14px;font-size:13px;}
+
+  /* HERO */
+  header.hero{padding:64px 0 56px;background:linear-gradient(180deg,#fff 0%,var(--page-bg) 100%);}
+  .hero-grid{display:grid;grid-template-columns:1.3fr 0.9fr;gap:48px;align-items:center;}
+  .eyebrow{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--navy);text-transform:uppercase;margin-bottom:14px;}
+  h1{font-size:34px;font-weight:800;color:var(--text-primary);margin-bottom:8px;line-height:1.2;}
+  .tagline{font-size:18px;color:var(--text-secondary);margin-bottom:18px;font-weight:500;}
+  .intro{font-size:15px;color:var(--text-secondary);max-width:520px;margin-bottom:26px;}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .hero-photo{
+    width:100%;max-width:320px;margin:0 auto;border-radius:16px;overflow:hidden;
+    border:1px solid var(--border);box-shadow:0 12px 30px -14px rgba(15,58,92,.35);
+  }
+  .hero-photo img{width:100%;height:auto;display:block;}
+
+  /* SECTION HEADERS */
+  .section{padding:56px 0;}
+  .section-alt{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .kicker{font-size:12px;letter-spacing:.08em;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px;}
+  h2{font-size:24px;font-weight:800;color:var(--text-primary);margin-bottom:24px;}
+
+  /* ABOUT / STATS */
+  .about-bio{font-size:15px;color:var(--text-secondary);max-width:760px;margin-bottom:32px;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .stat-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;}
+  .stat-headline{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:6px;line-height:1.3;}
+  .stat-sub{font-size:12px;color:var(--text-muted);}
+
+  /* TIMELINE */
+  .timeline-wrap{margin-top:36px;}
+  .timeline-label{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:14px;}
+  .timeline-list{list-style:none;border-left:2px solid var(--border);margin:0;padding:0 0 0 20px;display:flex;flex-direction:column;gap:16px;}
+  .timeline-item{position:relative;}
+  .timeline-item::before{content:'';position:absolute;left:-25px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--navy);border:2px solid #fff;box-shadow:0 0 0 1px var(--navy);}
+  .timeline-row{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;}
+  .timeline-role{font-size:14px;font-weight:700;color:var(--text-primary);}
+  .timeline-meta{font-size:12.5px;color:var(--text-muted);}
+
+  /* WHAT I DO */
+  .pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .pillar-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:22px;}
+  .pillar-num{font-size:12px;font-weight:800;color:var(--navy);letter-spacing:.06em;margin-bottom:10px;}
+  .pillar-title{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .pillar-desc{font-size:13.5px;color:var(--text-secondary);}
+
+  /* PROJECTS */
+  .project-card{
+    background:var(--card-bg);border:1px solid var(--border);border-radius:14px;
+    padding:26px;margin-bottom:16px;display:grid;grid-template-columns:1fr 170px;gap:22px;align-items:center;
+  }
+  .project-tag{font-size:11px;letter-spacing:.05em;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+  .project-title{font-size:17px;font-weight:700;margin-bottom:4px;}
+  .project-org{font-size:13px;color:var(--navy);font-weight:600;margin-bottom:10px;}
+  .project-desc{font-size:13.5px;color:var(--text-secondary);margin-bottom:14px;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .chip{background:#eef2f5;color:#3a4a58;font-size:11.5px;padding:4px 12px;border-radius:20px;font-weight:600;}
+  .chip-metric{background:#e9f7ef;color:#1f6b3c;}
+  .doc-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--navy);border:1px solid var(--navy);border-radius:20px;padding:6px 14px;cursor:pointer;}
+  .doc-link:hover{background:#eef4f8;}
+  .doc-link-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
+  .doc-link-download{color:#1f6b3c;border-color:#1f6b3c;}
+  .doc-link-download:hover{background:#eaf7ef;}
+  .project-thumb{width:170px;height:130px;border-radius:10px;overflow:hidden;border:1px solid var(--border);box-shadow:0 6px 16px -10px rgba(15,58,92,.3);}
+  .project-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+
+  /* PRESENTATIONS */
+  .presentations-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .presentation-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:18px;display:grid;grid-template-columns:1fr 120px;gap:16px;align-items:center;}
+  .presentation-title{font-size:14px;font-weight:700;margin-bottom:4px;line-height:1.35;}
+  .presentation-meta{font-size:11px;color:var(--text-muted);margin-bottom:8px;}
+  .presentation-desc{font-size:12px;color:var(--text-secondary);margin-bottom:10px;}
+  .presentation-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .presentation-tags .chip{font-size:10.5px;padding:3px 10px;}
+  .presentation-doc-link{display:inline-flex;margin-top:14px;font-size:11.5px;padding:5px 12px;}
+  .presentation-thumb{width:120px;height:88px;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 6px 16px -10px rgba(15,58,92,.3);}
+  .presentation-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .placeholder-card{
+    border:1.5px dashed #c7d0d8;border-radius:12px;padding:26px;text-align:center;
+    color:var(--text-muted);font-size:13.5px;font-style:italic;grid-column:1 / -1;
+  }
+  .placeholder-card.project-placeholder{margin-bottom:0;}
+
+  /* TESTIMONIALS */
+  .testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .testi-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:22px;}
+  .testi-quote{font-size:13.5px;color:var(--text-secondary);font-style:italic;margin-bottom:16px;}
+  .testi-person{display:flex;align-items:center;gap:10px;}
+  .testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .testi-name{font-size:13.5px;font-weight:700;}
+  .testi-role{font-size:12px;color:var(--text-muted);}
+
+  /* CONTACT */
+  footer.contact{background:var(--navy);color:#fff;padding:56px 0;text-align:center;}
+  footer.contact h2{color:#fff;font-size:26px;margin-bottom:6px;}
+  footer.contact .sub{color:#c7d6e2;font-size:15px;margin-bottom:26px;}
+  .contact-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .btn-white{background:#fff;color:var(--navy);}
+  .btn-white:hover{background:#eef4f8;}
+  .btn-outline-w{background:transparent;color:#fff;border:1px solid #5f84a0;}
+  .btn-outline-w:hover{background:#153f61;}
+  .footer-bottom{text-align:center;padding:20px 0;font-size:12px;color:var(--text-muted);}
+
+  @media (max-width:900px){
+    .presentations-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:760px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-photo{order:-1;max-width:220px;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .pillars-grid{grid-template-columns:1fr;}
+    .presentations-grid{grid-template-columns:1fr;}
+    .testi-grid{grid-template-columns:1fr;}
+    .project-card{grid-template-columns:1fr;}
+    .project-thumb{width:100%;height:170px;order:-1;}
+    .presentation-card{grid-template-columns:1fr;}
+    .presentation-thumb{width:100%;height:140px;order:-1;}
+    h1{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="brand-badge">AT</span> Andrew Tran, PharmD</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#what-i-do">What I Do</a>
+      <a href="#work">Work</a>
+      <a href="#presentations">Presentations</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Download CV</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Ambulatory Care &middot; Chronic Disease Management &middot; Clinical Informatics</div>
+      <h1>Andrew Tran, PharmD, BCACP, CDCES</h1>
+      <div class="tagline">Clinical Pharmacist — Ambulatory Care &amp; Value-Based Care</div>
+      <p class="intro">I bring value-based care to a fee-for-service world. I'm a clinical pharmacist who builds the systems behind excellent patient care, not just the care itself. I've managed patients across a variety of settings and am always finding new ways to improve.</p>
+      <div class="btn-row">
+        <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary">Download CV</a>
+        <a href="#work" class="btn btn-ghost">Portfolio</a>
+      </div>
+    </div>
+    <div class="hero-photo"><img src="images/headshot.jpg" alt="Andrew Tran"></div>
+  </div>
+</header>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="kicker">A little about</div>
+    <h2>Background</h2>
+    <p class="about-bio">I've been a clinical pharmacist for over seven years across a variety of settings — federally qualified health centers (FQHCs), anticoagulation clinics, community-oriented primary care clinics (COPCs), specialty mail-order operations, and telehealth. I completed my PGY-1 Community Pharmacy residency with a specialization in Ambulatory Care. My experience spans chronic disease management under collaborative practice agreements (CPAs), protocol development, clinical tools &amp; workflow creation, multi-state pharmacy law compliance, specialty pharmacy accreditation standards, and patient education.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-headline">PGY-1 Residency</div><div class="stat-sub">Ambulatory Care</div></div>
+      <div class="stat-card"><div class="stat-headline">7 years</div><div class="stat-sub">Chronic disease management</div></div>
+      <div class="stat-card"><div class="stat-headline">4 states</div><div class="stat-sub">TX &middot; OR &middot; MI &middot; LA licensure</div></div>
+      <div class="stat-card"><div class="stat-headline">BCACP &middot; CDCES</div><div class="stat-sub">Board certified</div></div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="timeline-label">Experience timeline</div>
+      <ul class="timeline-list">
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">Engage Clinical Pharmacist</span><span class="timeline-meta">&middot; Stellus Rx &middot; Aug 2026 &ndash; Present</span></div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">Ambulatory Clinical Pharmacist I&ndash;III</span><span class="timeline-meta">&middot; Baylor Scott &amp; White Health &middot; Jul 2023 &ndash; Mar 2026</span></div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">Specialty Clinical Pharmacist</span><span class="timeline-meta">&middot; Ascension Health &middot; Feb 2022 &ndash; Feb 2023</span></div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">Ambulatory Care Clinical Pharmacy Specialist</span><span class="timeline-meta">&middot; Parkland Health &amp; Hospital System &middot; Feb 2021 &ndash; Feb 2022</span></div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">Clinical Pharmacist</span><span class="timeline-meta">&middot; Baylor Scott &amp; White Health &middot; Jul 2019 &ndash; Jan 2021</span></div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">PGY-1 Community Pharmacy Resident</span><span class="timeline-meta">&middot; Penobscot Community Health Care (PCHC) &middot; Jun 2018 &ndash; Jun 2019</span></div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">Staff Pharmacist</span><span class="timeline-meta">&middot; Walmart Pharmacy &middot; Aug 2017 &ndash; May 2018</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="what-i-do">
+  <div class="wrap">
+    <div class="kicker">The foundations</div>
+    <h2>What I Do</h2>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">Chronic Disease Management</div>
+        <div class="pillar-desc">Board certified in ambulatory care (BCACP) with residency training in chronic disease management — diabetes, hypertension, heart disease, CHF, anticoagulation, asthma/COPD — plus transitions of care, specialty pharmacy, and controlled substance stewardship. Over 7 years of direct patient care via outpatient and telehealth visits.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Protocol Design</div>
+        <div class="pillar-desc">Extensive experience with collaborative practice agreements and developing clinical workflows and protocols. Have contributed to business plans, practice agreements, and protocols for multiple service lines.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Medication Education</div>
+        <div class="pillar-desc">Certified Diabetes Care and Education Specialist (CDCES) with a teaching certificate from the University of New England. Lead of the Healthy Living with Diabetes class, and preceptor for pharmacy students from UNE, Husson University, UT Austin, Texas Tech, and Texas A&amp;M.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title">Clinical Tools &amp; Informatics</div>
+        <div class="pillar-desc">Leverages technology to deliver high-quality clinical care — including a perioperative anticoagulation bridge plan maker and a diabetes treatment algorithm tool.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="kicker">Selected work</div>
+    <h2>Projects</h2>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">Protocol / Clinical Systems Design</div>
+      <div class="project-title">BSWH Anticoagulation Clinical Protocol and Procedures</div>
+      <div class="project-org">Baylor Scott &amp; White Health — Temple, TX &middot; Updated January 2026</div>
+      <div class="project-desc">Sole author and developer of the clinic's protocol and procedures manual — revising, combining, and updating procedural documents spanning 1997&ndash;2023 into one comprehensive document to streamline and standardize responsibilities across the anticoagulation clinic.</div>
+      <div class="chip-row">
+        <span class="chip chip-metric">Sole author</span>
+        <span class="chip chip-metric">75-page protocol</span>
+        <span class="chip chip-metric">1,300 patients</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Protocol development</span>
+        <span class="chip">Clinical workflow design</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/bswh-acc-protocol.pdf" target="_blank" rel="noopener">View full document ↗</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-bswh-acc-protocol.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">National Rollout</div>
+      <div class="project-title">Ascension Specialty Rx — Pharmacy Team Procedures</div>
+      <div class="project-org">Ascension Health — Austin, TX &middot; Version 1.0, updated 10/06/2022</div>
+      <div class="project-desc">Contributor on the pioneering Ascension Specialty Mail Order team — developed the policies and procedures governing the workflow and standard operations for the pharmacy team.</div>
+      <div class="chip-row">
+        <span class="chip chip-metric">38 states</span>
+        <span class="chip chip-metric">1,100&ndash;1,500 Rx / day</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Clinical workflow design</span>
+        <span class="chip">Protocol development</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/ascension-specialty-rx-procedures.pdf" target="_blank" rel="noopener">View full document ↗</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-ascension-specialty-rx-procedures.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">Clinical Tool</div>
+      <div class="project-title">Diabetes Treatment Algorithm Tool</div>
+      <div class="project-org">Built and maintained by Andrew Tran, PharmD (2026)</div>
+      <div class="project-desc">A clinical decision-support tool built in Excel, updated to the most recent American Diabetes Association guidelines — assists in selecting diabetes medications and calculating insulin dosing.</div>
+      <div class="chip-row">
+        <span class="chip">Diabetes management</span>
+        <span class="chip">Insulin dosing</span>
+        <span class="chip">ADA guidelines</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/dm-treatment-algorithm.pdf" target="_blank" rel="noopener">Preview tool ↗</a>
+        <a class="doc-link doc-link-download" href="projects/dm-treatment-algorithm.xlsx" download>Download .xlsx ⬇</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-dm-treatment-algorithm.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">Clinical Tool</div>
+      <div class="project-title">Anticoagulation Bridge Plan Maker</div>
+      <div class="project-org">Originally built 2011 &middot; redesigned and maintained by Andrew Tran, PharmD (2026)</div>
+      <div class="project-desc">Excel tool that automates perioperative anticoagulation bridge therapy planning — generates a day-by-day Lovenox/warfarin dosing schedule around a surgery date and includes a built-in creatinine clearance calculator.</div>
+      <div class="chip-row">
+        <span class="chip">CrCl calculator</span>
+        <span class="chip">14-day bridge planning</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/bridge-plan-maker.pdf" target="_blank" rel="noopener">Preview tool ↗</a>
+        <a class="doc-link doc-link-download" href="projects/bridge-plan-maker.xlsx" download>Download .xlsx ⬇</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-bridge-plan-maker.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">Business Proposal</div>
+      <div class="project-title">Business Plan for Clinical Pharmacy Service</div>
+      <div class="project-org">Waco Family Medicine, in conjunction with Texas A&amp;M College of Pharmacy &middot; October 2021</div>
+      <div class="project-desc">Proposal to implement an ambulatory care pharmacy service line at an FQHC in Waco, Texas — an ambulatory care pharmacist position co-founded by Texas A&amp;M College of Pharmacy and Waco Family Medicine to see patients and precept pharmacy students.</div>
+      <div class="chip-row">
+        <span class="chip chip-metric">Chronic disease management</span>
+        <span class="chip chip-metric">Medication adherence</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Business planning</span>
+        <span class="chip">Pharmacy advocacy</span>
+        <span class="chip">Pharmacy education</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/waco-business-plan.pdf" target="_blank" rel="noopener">View full document ↗</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-waco-business-plan.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">PGY-1 Residency Research Project</div>
+      <div class="project-title">Evaluation of DOAC Use &amp; Pharmacist-Led DOAC Telephone Clinic in an FQHC</div>
+      <div class="project-org">Penobscot Community Health Care, Bangor, ME &middot; Presented at ASHP Midyear Clinical Meeting, Nov 2018 &middot; co-authored with Jessica E. Bates, PharmD, BCACP</div>
+      <div class="project-desc">Residency research project evaluating prescribing appropriateness of direct oral anticoagulants against the Adapted Medication Appropriateness Index, and implementing a pharmacist-led DOAC telephone clinic in an outpatient FQHC.</div>
+      <div class="chip-row">
+        <span class="chip chip-metric">89 patients evaluated</span>
+        <span class="chip chip-metric">57.3% had &ge;1 inappropriate criterion</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Residency research</span>
+        <span class="chip">Anticoagulation</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/pgy1-doac-poster.pdf" target="_blank" rel="noopener">View poster ↗</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-pgy1-doac-poster.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">Published Research</div>
+      <div class="project-title">Loperamide Misuse and Abuse</div>
+      <div class="project-org">Journal of the American Pharmacists Association (JAPhA), 2017 &middot; co-authored with H. Miller, L. Panahi, D. Tapia, J.D. Bowman</div>
+      <div class="project-desc">Peer-reviewed literature review examining the rise in loperamide misuse and abuse in the U.S., including trends in reported toxicity cases and associated cardiac risks, published in JAPhA.</div>
+      <div class="chip-row">
+        <span class="chip chip-metric">54 case reports reviewed (1985&ndash;2016)</span>
+        <span class="chip chip-metric">Peer-reviewed</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Literature review</span>
+        <span class="chip">Toxicology</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/loperamide-misuse-abuse.pdf" target="_blank" rel="noopener">Read publication ↗</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-loperamide-misuse-abuse.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="placeholder-card project-placeholder">More projects coming soon — send the same fields you filled in before (category, title, org, description, metrics, tags) and they'll be added here in this same card format.</div>
+  </div>
+</section>
+
+<section class="section section-alt" id="presentations">
+  <div class="wrap">
+    <div class="kicker">Teaching &amp; speaking</div>
+    <h2>Presentations</h2>
+    <div class="presentations-grid">
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Warfarin: Mechanism, Dosing &amp; Monitoring</div>
+        <div class="presentation-meta">Baylor Scott &amp; White Health — Temple Anticoagulation Clinic · March 2025</div>
+        <div class="presentation-desc">Provider-facing education on warfarin's mechanism of action, dosing and INR monitoring, and drug/disease/dietary interactions.</div>
+        <div class="presentation-tags"><span class="chip">Anticoagulation</span><span class="chip">Provider education</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2025-warfarin-education.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2025-warfarin-education.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Healthy Living with Diabetes, Class 3: Taking Medicines</div>
+        <div class="presentation-meta">Patient education series · 2021</div>
+        <div class="presentation-desc">Patient-facing class on diabetes medications — how they work, insulin and injectable basics, storage, avoiding mix-ups, managing missed doses, and using MyChart for refills.</div>
+        <div class="presentation-tags"><span class="chip">Patient education</span><span class="chip">Diabetes</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2021-healthy-living-diabetes-medications.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2021-healthy-living-diabetes-medications.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Insulin Pump Therapy in Type 2 Diabetes</div>
+        <div class="presentation-meta">Baylor Scott &amp; White Health · 2020</div>
+        <div class="presentation-desc">Clinical review of insulin pump therapy in T2DM, including a detailed patient case with basal-rate titration.</div>
+        <div class="presentation-tags"><span class="chip">Diabetes</span><span class="chip">Insulin therapy</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2020-insulin-pump-t2dm.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2020-insulin-pump-t2dm.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Blood Pressure Goal: 130/80 vs. 140/90 mmHg</div>
+        <div class="presentation-meta">Baylor Scott &amp; White Health · 2020</div>
+        <div class="presentation-desc">Case-based comparison of competing hypertension guideline targets, closing on individualized, patient-centered goal-setting.</div>
+        <div class="presentation-tags"><span class="chip">Hypertension</span><span class="chip">Guideline review</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2020-bp-goal-130-80-vs-140-90.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2020-bp-goal-130-80-vs-140-90.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Update to Migraine Therapy: New Injectable Preventative Medications</div>
+        <div class="presentation-meta">Penobscot Community Health Care · May 23, 2019</div>
+        <div class="presentation-desc">Provider CE lecture on updated migraine treatment and prevention guidelines, covering the new anti-CGRP injectable preventatives (erenumab, galcanezumab, fremanezumab), their mechanism of action, and patient selection.</div>
+        <div class="presentation-tags"><span class="chip">Neurology</span><span class="chip">Provider education</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2019-migraine-ce.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2019-migraine-ce.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Pharmacist-led DOAC Telephone Clinic in an FQHC</div>
+        <div class="presentation-meta">Maine Society of Health-System Pharmacists · April 6, 2019</div>
+        <div class="presentation-desc">Residency research project evaluating direct oral anticoagulant use and the implementation of a pharmacist-led DOAC telephone clinic in an outpatient federally qualified health center.</div>
+        <div class="presentation-tags"><span class="chip-metric chip">Residency research</span><span class="chip">Anticoagulation</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2019-mshp-doac-telephone-clinic.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2019-mshp-doac-telephone-clinic.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Pharmacist Training Business Plan</div>
+        <div class="presentation-meta">Penobscot Community Health Care · 2019 · co-authored with Jennifer Cormier, PharmD and Kacie Guerrette, PharmD</div>
+        <div class="presentation-desc">PGY-1 orientation and competency framework, including a 5-week onboarding schedule and competency checklist.</div>
+        <div class="presentation-tags"><span class="chip">Residency program design</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2019-pharmacist-training-business-plan.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2019-pharmacist-training-business-plan.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">DOAC &amp; Parenteral Anticoagulant Interactions</div>
+        <div class="presentation-meta">Penobscot Community Health Care · March 26, 2019</div>
+        <div class="presentation-desc">Provider CE lecture on direct oral anticoagulants and parenteral anticoagulants, delivered as PGY-1 pharmacy resident.</div>
+        <div class="presentation-tags"><span class="chip">Anticoagulation</span><span class="chip">Provider education</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2019-doac-parenteral-anticoagulants.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2019-doac-parenteral-anticoagulants.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Management of Pulmonary Cement Embolism</div>
+        <div class="presentation-meta">Texas A&amp;M College of Pharmacy — Community rotation · September 21, 2016</div>
+        <div class="presentation-desc">Case-based review of pulmonary cement embolism following vertebroplasty, presented as a 4th-year student pharmacist.</div>
+        <div class="presentation-tags"><span class="chip">Case presentation</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2016-pulmonary-cement-embolism.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2016-pulmonary-cement-embolism.jpg" alt="" loading="lazy"></div>
+    </div>
+      <div class="presentation-card">
+      <div class="presentation-card-body">
+        <div class="presentation-title">Antimicrobial Therapy for Legionnaires' Disease</div>
+        <div class="presentation-meta">Texas A&amp;M College of Pharmacy — Institutional rotation · December 15, 2016</div>
+        <div class="presentation-desc">Patient case covering risk factors, diagnostic testing, and antimicrobial regimen selection for Legionnaires' disease, presented as a 4th-year student pharmacist.</div>
+        <div class="presentation-tags"><span class="chip">Case presentation</span><span class="chip">Infectious disease</span></div>
+        <a class="doc-link presentation-doc-link" href="presentations/2016-legionnaires-disease.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+      </div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2016-legionnaires-disease.jpg" alt="" loading="lazy"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="kicker">What colleagues say</div>
+    <h2>Testimonials</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"Andrew went above and beyond during the systemwide downtime and helped a new patient during enrollment by calling and explaining everything to both the patient and their daughter. Both came into the clinic to fill out paperwork and had nothing but praise for Andrew. Thank you, Andrew, for all that you do for our patients — it doesn't go unnoticed."</div>
+        <div class="testi-person">
+          <div class="testi-avatar">DV</div>
+          <div><div class="testi-name">Donna Valerio</div><div class="testi-role">Operations Manager, Baylor Scott &amp; White Health</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"You have taken on duties in addition to your assignments, and you've been very prompt and helpful with requests. Your commitment to the team shows — thank you for all that you do at the clinic to support remote work. I am very grateful to have you as part of the team."</div>
+        <div class="testi-person">
+          <div class="testi-avatar">AN</div>
+          <div><div class="testi-name">Aimee Nguyen, PharmD, BCGP</div><div class="testi-role">Clinical Pharmacist, Baylor Scott &amp; White Health</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"Andrew, I appreciate all of your hard work and flexibility since joining the team. Thank you for your continued efforts and dedication to ensure excellent patient care for our service line!"</div>
+        <div class="testi-person">
+          <div class="testi-avatar">DE</div>
+          <div><div class="testi-name">Daniel Elliot, PharmD, BCPS</div><div class="testi-role">Specialty Pharmacy Manager, Ascension Health</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"Andrew, thank you for all that you do for the providers and patients at Bluitt-Flowers Health Center. We are glad to have you as part of the team!"</div>
+        <div class="testi-person">
+          <div class="testi-avatar">CA</div>
+          <div><div class="testi-name">Cortny Anderson, PharmD, BCPS</div><div class="testi-role">Ambulatory Pharmacy Manager, Parkland Health</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>Have a role or project in mind?</h2>
+    <div class="sub">Let's talk.</div>
+    <div class="contact-btns">
+      <a href="https://www.linkedin.com/in/atran-pharmd/" target="_blank" class="btn btn-white">LinkedIn</a>
+      <a href="mailto:Andrew.tran@utexas.edu" class="btn btn-outline-w">Email</a>
+      <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="btn btn-outline-w">Download CV</a>
+    </div>
+  </div>
+</footer>
+
+<div class="footer-bottom">&copy; 2026 Andrew Tran, PharmD &middot; Clinical Pharmacy Portfolio</div>
+
+
+</body>
+</html>
