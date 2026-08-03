@@ -149,8 +149,24 @@
   .btn-outline-w:hover{background:#153f61;}
   .footer-bottom{text-align:center;padding:20px 0;font-size:12px;color:var(--text-muted);}
 
+  /* RESIDENCY TRAINING */
+  .residency-intro{font-size:15px;color:var(--text-secondary);max-width:760px;margin-bottom:8px;}
+  .residency-group-label{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin:32px 0 14px;}
+  .residency-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .residency-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+  .residency-role{font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:2px;}
+  .residency-site{font-size:13px;color:var(--navy);font-weight:600;margin-bottom:2px;}
+  .residency-meta{font-size:12px;color:var(--text-muted);margin-bottom:10px;}
+  .residency-desc{font-size:13.5px;color:var(--text-secondary);line-height:1.55;}
+  .residency-research{margin-top:32px;background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:26px;}
+  .residency-research-label{font-size:12px;letter-spacing:.06em;font-weight:700;color:var(--navy);text-transform:uppercase;margin-bottom:8px;}
+  .residency-research-title{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:6px;line-height:1.4;}
+  .residency-research-meta{font-size:12.5px;color:var(--text-muted);margin-bottom:12px;}
+  .residency-research-desc{font-size:13.5px;color:var(--text-secondary);line-height:1.6;margin-bottom:14px;}
+
   @media (max-width:900px){
     .presentations-grid{grid-template-columns:repeat(2,1fr);}
+    .residency-grid{grid-template-columns:1fr;}
   }
   @media (max-width:760px){
     .hero-grid{grid-template-columns:1fr;}
@@ -163,6 +179,7 @@
     .project-thumb{width:100%;height:170px;order:-1;}
     .presentation-card{grid-template-columns:1fr;}
     .presentation-thumb{width:100%;height:140px;order:-1;}
+    .residency-grid{grid-template-columns:1fr;}
     h1{font-size:28px;}
   }
 </style>
@@ -177,6 +194,7 @@
       <a href="#what-i-do">What I Do</a>
       <a href="#work">Work</a>
       <a href="#presentations">Presentations</a>
+      <a href="#residency">Residency</a>
       <a href="#contact">Contact</a>
     </div>
     <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Download CV</a>
@@ -248,22 +266,22 @@
       <div class="pillar-card">
         <div class="pillar-num">01</div>
         <div class="pillar-title">Chronic Disease Management</div>
-        <div class="pillar-desc">Board certified in ambulatory care (BCACP) with residency training in chronic disease management — diabetes, hypertension, heart disease, CHF, anticoagulation, asthma/COPD — plus transitions of care, specialty pharmacy, and controlled substance stewardship. Over 7 years of direct patient care via outpatient and telehealth visits.</div>
+        <div class="pillar-desc">I'm board certified in ambulatory care (BCACP) with residency training in chronic disease management — diabetes, hypertension, heart disease, CHF, anticoagulation, asthma/COPD — plus transitions of care, specialty pharmacy, and controlled substance stewardship. I have over 7 years of direct patient care experience via outpatient and telehealth visits.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-num">02</div>
         <div class="pillar-title">Protocol Design</div>
-        <div class="pillar-desc">Extensive experience with collaborative practice agreements and developing clinical workflows and protocols. Have contributed to business plans, practice agreements, and protocols for multiple service lines.</div>
+        <div class="pillar-desc">I have extensive experience with collaborative practice agreements and developing clinical workflows and protocols. I've contributed to business plans, practice agreements, and protocols for multiple service lines.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-num">03</div>
         <div class="pillar-title">Medication Education</div>
-        <div class="pillar-desc">Certified Diabetes Care and Education Specialist (CDCES) with a teaching certificate from the University of New England. Lead of the Healthy Living with Diabetes class, and preceptor for pharmacy students from UNE, Husson University, UT Austin, Texas Tech, and Texas A&amp;M.</div>
+        <div class="pillar-desc">I obtained my teaching certificate from the University of New England College of Pharmacy and am also a Certified Diabetes Care and Education Specialist (CDCES). I have also precepted pharmacy students from UNE, Husson, University of Texas, Texas Tech, and Texas A&amp;M Colleges of Pharmacy.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-num">04</div>
         <div class="pillar-title">Clinical Tools &amp; Informatics</div>
-        <div class="pillar-desc">Leverages technology to deliver high-quality clinical care — including a perioperative anticoagulation bridge plan maker and a diabetes treatment algorithm tool.</div>
+        <div class="pillar-desc">I leverage technology to deliver high-quality clinical care — including a perioperative anticoagulation bridge plan maker and a diabetes treatment algorithm tool.</div>
       </div>
     </div>
   </div>
@@ -273,6 +291,43 @@
   <div class="wrap">
     <div class="kicker">Selected work</div>
     <h2>Projects</h2>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">Clinical Tool</div>
+      <div class="project-title">Diabetes Treatment Algorithm Tool</div>
+      <div class="project-org">Built and maintained by Andrew Tran, PharmD (2026)</div>
+      <div class="project-desc">A clinical decision-support tool built in Excel, updated to the most recent American Diabetes Association guidelines — assists in selecting diabetes medications and calculating insulin dosing.</div>
+      <div class="chip-row">
+        <span class="chip">Diabetes management</span>
+        <span class="chip">Insulin dosing</span>
+        <span class="chip">ADA guidelines</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/dm-treatment-algorithm.pdf" target="_blank" rel="noopener">Preview tool ↗</a>
+        <a class="doc-link doc-link-download" href="projects/dm-treatment-algorithm.xlsx" download>Download .xlsx ⬇</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-dm-treatment-algorithm.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
+      <div class="project-tag">Clinical Tool</div>
+      <div class="project-title">Anticoagulation Bridge Plan Maker</div>
+      <div class="project-org">Originally built 2011 &middot; redesigned and maintained by Andrew Tran, PharmD (2026)</div>
+      <div class="project-desc">Excel tool that automates perioperative anticoagulation bridge therapy planning — generates a day-by-day Lovenox/warfarin dosing schedule around a surgery date and includes a built-in creatinine clearance calculator.</div>
+      <div class="chip-row">
+        <span class="chip">CrCl calculator</span>
+        <span class="chip">14-day bridge planning</span>
+      </div>
+      <div class="doc-link-row">
+        <a class="doc-link" href="projects/bridge-plan-maker.pdf" target="_blank" rel="noopener">Preview tool ↗</a>
+        <a class="doc-link doc-link-download" href="projects/bridge-plan-maker.xlsx" download>Download .xlsx ⬇</a>
+      </div>
+    </div>
+      <div class="project-thumb"><img src="thumbs/proj-bridge-plan-maker.jpg" alt="" loading="lazy"></div>
+    </div>
 
     <div class="project-card">
       <div class="project-card-body">
@@ -315,43 +370,6 @@
       </div>
     </div>
       <div class="project-thumb"><img src="thumbs/proj-ascension-specialty-rx-procedures.jpg" alt="" loading="lazy"></div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-card-body">
-      <div class="project-tag">Clinical Tool</div>
-      <div class="project-title">Diabetes Treatment Algorithm Tool</div>
-      <div class="project-org">Built and maintained by Andrew Tran, PharmD (2026)</div>
-      <div class="project-desc">A clinical decision-support tool built in Excel, updated to the most recent American Diabetes Association guidelines — assists in selecting diabetes medications and calculating insulin dosing.</div>
-      <div class="chip-row">
-        <span class="chip">Diabetes management</span>
-        <span class="chip">Insulin dosing</span>
-        <span class="chip">ADA guidelines</span>
-      </div>
-      <div class="doc-link-row">
-        <a class="doc-link" href="projects/dm-treatment-algorithm.pdf" target="_blank" rel="noopener">Preview tool ↗</a>
-        <a class="doc-link doc-link-download" href="projects/dm-treatment-algorithm.xlsx" download>Download .xlsx ⬇</a>
-      </div>
-    </div>
-      <div class="project-thumb"><img src="thumbs/proj-dm-treatment-algorithm.jpg" alt="" loading="lazy"></div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-card-body">
-      <div class="project-tag">Clinical Tool</div>
-      <div class="project-title">Anticoagulation Bridge Plan Maker</div>
-      <div class="project-org">Originally built 2011 &middot; redesigned and maintained by Andrew Tran, PharmD (2026)</div>
-      <div class="project-desc">Excel tool that automates perioperative anticoagulation bridge therapy planning — generates a day-by-day Lovenox/warfarin dosing schedule around a surgery date and includes a built-in creatinine clearance calculator.</div>
-      <div class="chip-row">
-        <span class="chip">CrCl calculator</span>
-        <span class="chip">14-day bridge planning</span>
-      </div>
-      <div class="doc-link-row">
-        <a class="doc-link" href="projects/bridge-plan-maker.pdf" target="_blank" rel="noopener">Preview tool ↗</a>
-        <a class="doc-link doc-link-download" href="projects/bridge-plan-maker.xlsx" download>Download .xlsx ⬇</a>
-      </div>
-    </div>
-      <div class="project-thumb"><img src="thumbs/proj-bridge-plan-maker.jpg" alt="" loading="lazy"></div>
     </div>
 
     <div class="project-card">
@@ -525,6 +543,102 @@
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2016-legionnaires-disease.jpg" alt="" loading="lazy"></div>
     </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="residency">
+  <div class="wrap">
+    <div class="kicker">Where it started</div>
+    <h2>Residency Training</h2>
+    <p class="residency-intro">Before any of the work above, this is where I learned how to practice ambulatory care pharmacy. I completed my PGY-1 Community Pharmacy Residency (Emphasis in Ambulatory Care) at Penobscot Community Health Care (PCHC), a Federally Qualified Health Center in Bangor, Maine, from June 2018 to June 2019 &mdash; a mix of core clinical rotations, longitudinal committee work, and a residency research project.</p>
+
+    <div class="residency-group-label">Core &amp; Elective Learning Experiences</div>
+    <div class="residency-grid">
+      <div class="residency-card">
+        <div class="residency-role">Ambulatory Care I</div>
+        <div class="residency-site">Penobscot Community Health Care (PCHC) &middot; Bangor, ME</div>
+        <div class="residency-meta">Jul &ndash; Sep 2018 &middot; Preceptor: Jessica Bates, PharmD, BCACP</div>
+        <div class="residency-desc">Foundational rotation delivering direct, patient-centered chronic disease management within an FQHC primary care setting, with concentrated focus on anticoagulation and diabetes care.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Ambulatory Care II</div>
+        <div class="residency-site">Helen Hunt Health Center (HHHC) &middot; Old Town, ME</div>
+        <div class="residency-meta">Sep &ndash; Oct 2018 &middot; Preceptor: Meagan Rusby, PharmD</div>
+        <div class="residency-desc">Independent management of chronic disease states including diabetes, hypertension, hyperlipidemia, hepatitis C, and smoking cessation, with progressively increasing autonomy over patient visits.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Ambulatory Care III</div>
+        <div class="residency-site">St. Joseph's Internal Medicine Clinic (SJIM) &middot; Bangor, ME</div>
+        <div class="residency-meta">Oct &ndash; Nov 2018 &middot; Preceptor: Eva Quirion, NP, PhD</div>
+        <div class="residency-desc">Embedded ambulatory care rotation within a primary care practice, prioritizing provider referrals across diabetes, hypertension, anticoagulation, asthma, and COPD, with an emphasis on interdisciplinary communication.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Hepatitis C Clinic</div>
+        <div class="residency-site">Brewer Medical Center (BMC) &middot; Brewer, ME</div>
+        <div class="residency-meta">Dec 2018 &ndash; Jan 2019 &middot; Preceptor: Katie Sawicki, PharmD</div>
+        <div class="residency-desc">Dedicated rotation managing patients on direct-acting antiviral therapy for hepatitis C, including treatment selection, monitoring, and coordination of care with prescribers.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Transitions of Care &ndash; Home Visits</div>
+        <div class="residency-site">Penobscot Community Health Care (PCHC) &middot; Bangor, ME</div>
+        <div class="residency-meta">Nov &ndash; Dec 2018 &middot; Preceptor: Matthew Christie, PharmD, BCACP</div>
+        <div class="residency-desc">Conducted comprehensive medication reviews, home visits, and hospital follow-up visits for recently discharged patients, working alongside nurse care managers and social workers to safely bridge hospital-to-home transitions.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Pharmacy Administration &ndash; 340B &amp; Management</div>
+        <div class="residency-site">Penobscot Community Health Care (PCHC) &middot; Bangor, ME</div>
+        <div class="residency-meta">Jan &ndash; Feb 2019 &middot; Preceptor: Frank McGrady, PharmD, BCPS</div>
+        <div class="residency-desc">Operations rotation with the Director of Pharmacy covering community pharmacy management, 340B program compliance and finances, and Accountable Care Organization structure within an FQHC.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Elective &ndash; Specialty Infusion Pharmacy</div>
+        <div class="residency-site">Penobscot Community Health Care (PCHC) &middot; Bangor, ME</div>
+        <div class="residency-meta">Feb &ndash; Apr 2019 &middot; Preceptor: Tiffany Carlisle, PharmD</div>
+        <div class="residency-desc">Managed infusion therapy for patients with autoimmune and inflammatory conditions (Crohn's, rheumatoid arthritis, psoriasis, ulcerative colitis, multiple sclerosis), reviewing orders for dosing, drug interactions, and pre-medication needs.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Elective &ndash; Academia</div>
+        <div class="residency-site">Husson University School of Pharmacy &middot; Bangor, ME</div>
+        <div class="residency-meta">May &ndash; Jun 2019 &middot; Preceptor: Frank McGrady, PharmD, BCPS</div>
+        <div class="residency-desc">Introduction to the pharmacist-faculty role, covering ACPE accreditation standards, curriculum development, and experiential education alongside Husson School of Pharmacy faculty.</div>
+      </div>
+    </div>
+
+    <div class="residency-group-label">Longitudinal Experiences</div>
+    <div class="residency-grid">
+      <div class="residency-card">
+        <div class="residency-role">Controlled Substance Stewardship Committee (CSS)</div>
+        <div class="residency-site">Penobscot Community Health Care (PCHC) &middot; Bangor, ME</div>
+        <div class="residency-meta">Jun 2018 &ndash; Jun 2019</div>
+        <div class="residency-desc">Weekly interdisciplinary case review of patients on controlled substances alongside psychiatry, pain management, and social work &mdash; developing taper plans and evidence-based recommendations for prescribers.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Pharmacy &amp; Therapeutics Committee (P&amp;T)</div>
+        <div class="residency-site">Penobscot Community Health Care (PCHC) &middot; Bangor, ME</div>
+        <div class="residency-meta">Jun 2018 &ndash; Jun 2019</div>
+        <div class="residency-desc">Participated in formulary review and medication-use policy decisions as a longitudinal member of the P&amp;T committee.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Staffing &amp; Immunization Administration</div>
+        <div class="residency-site">Brewer Medical Center Pharmacy (BMC) &middot; Brewer, ME</div>
+        <div class="residency-meta">Jun 2018 &ndash; Jun 2019</div>
+        <div class="residency-desc">Weekly staffing in a 340B outpatient community pharmacy &mdash; prescription verification, immunization administration, and medication therapy management services.</div>
+      </div>
+      <div class="residency-card">
+        <div class="residency-role">Teaching Certificate Program</div>
+        <div class="residency-site">University of New England College of Pharmacy (UNE) &middot; Portland, ME</div>
+        <div class="residency-meta">Jun 2018 &ndash; Jun 2019</div>
+        <div class="residency-desc">Completed a longitudinal teaching certificate program, precepting and co-precepting APPE and IPPE students throughout the residency year and developing a personal teaching philosophy.</div>
+      </div>
+    </div>
+
+    <div class="residency-research">
+      <div class="residency-research-label">Residency Research Project</div>
+      <div class="residency-research-title">Evaluation of Direct Oral Anticoagulant Use and Implementation of a Pharmacist-Led DOAC Telephone Clinic in an Outpatient Federally Qualified Health Center</div>
+      <div class="residency-research-meta">Penobscot Community Health Care, Bangor, ME &middot; Jun 2018 &ndash; Jun 2019 &middot; Co-authored with Jessica Bates, PharmD, BCACP &middot; Presented at ASHP Midyear Clinical Meeting &amp; MSHP Spring Conference</div>
+      <div class="residency-research-desc">Designed and evaluated a pharmacist-led telephone clinic for DOAC management, presented as the capstone research project of the residency year. See the full poster under Projects.</div>
+      <a class="doc-link" href="projects/pgy1-doac-poster.pdf" target="_blank" rel="noopener">View poster &#8599;</a>
     </div>
   </div>
 </section>
