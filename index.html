@@ -272,7 +272,7 @@
       <div class="tagline">Clinical Pharmacist — Ambulatory Care &amp; Value-Based Care</div>
       <p class="intro">I bring value-based care to a fee-for-service world. I'm a clinical pharmacist who builds the systems behind excellent patient care, not just the care itself. I've managed patients across a variety of settings and am always finding new ways to improve.</p>
       <div class="btn-row">
-        <a href="cv/andrew-tran-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary">Download CV</a>
+        <a href="#" class="btn btn-primary hero-cv-view" data-pdf="cv/andrew-tran-cv.pdf">View CV</a>
         <a href="#work" class="btn btn-ghost">Portfolio</a>
       </div>
     </div>
@@ -352,6 +352,15 @@
               <li>Delivered comprehensive medication management for a chronic disease panel of 15&ndash;30 patients per day across ambulatory rotations at three FQHC sites.</li>
               <li>Completed 460+ hours of community pharmacy staffing alongside rotations in Transitions of Care, Administration, Population Health Management, and Patient-Centered Dispensing.</li>
               <li>Led a research project on DOAC utilization and implemented a pharmacist-led DOAC telephone clinic; served on the Controlled Substance Stewardship and High Utilizer Group committees.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-row"><span class="timeline-role">Staff Pharmacist</span><span class="timeline-meta">&middot; Walmart Pharmacy &middot; Aug 2017 &ndash; May 2018</span><span class="timeline-caret">&#9662;</span></div>
+          <div class="timeline-detail">
+            <ul>
+              <li>Led a team of 6 pharmacy technicians in accurately processing and dispensing a weekly volume of 1,500&ndash;1,800 prescriptions, counseling patients on medication use, safety, and healthcare needs.</li>
+              <li>Administered immunizations and company-sponsored health programs while ensuring full compliance with HIPAA, PHI, and regulatory standards.</li>
             </ul>
           </div>
         </li>
@@ -795,6 +804,11 @@
     var pdfPath = thumb.getAttribute('data-pdf');
     if(!pdfPath) return;
     thumb.addEventListener('click', function(){ openLightbox(pdfPath); });
+  });
+  document.querySelectorAll('.hero-cv-view').forEach(function(btn){
+    var pdfPath = btn.getAttribute('data-pdf');
+    if(!pdfPath) return;
+    btn.addEventListener('click', function(e){ e.preventDefault(); openLightbox(pdfPath); });
   });
   closeBtn.addEventListener('click', closeLightbox);
   overlay.addEventListener('click', function(e){ if(e.target === overlay) closeLightbox(); });
