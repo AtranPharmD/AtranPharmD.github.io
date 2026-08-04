@@ -239,9 +239,13 @@
   .lightbox-content img{width:100%;height:100%;border:0;display:none;object-fit:contain;background:#fff;}
   .lightbox-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--text-primary);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 4px 10px -4px rgba(0,0,0,.3);}
   .lightbox-close:hover{background:#f2f2f2;}
+  .lightbox-open-new{position:absolute;top:10px;right:56px;height:36px;padding:0 14px;border-radius:18px;background:#fff;border:1px solid var(--border);color:var(--text-primary);font-size:13px;font-weight:600;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:2;box-shadow:0 4px 10px -4px rgba(0,0,0,.3);text-decoration:none;white-space:nowrap;}
+  .lightbox-open-new:hover{background:#f2f2f2;}
+  .lightbox-open-new.show{display:flex;}
   @media (max-width:760px){
     .lightbox-content{height:85vh;}
     .lightbox-overlay{padding:12px;}
+    .lightbox-open-new{right:52px;padding:0 10px;font-size:12px;}
   }
 </style>
 </head>
@@ -403,6 +407,7 @@
   <div class="wrap">
     <div class="kicker">Selected work</div>
     <h2>Projects</h2>
+    <div class="timeline-hint" style="margin-left:0;">Click or tap a thumbnail to see it larger</div>
 
     <div class="project-card">
       <div class="project-card-body">
@@ -436,7 +441,7 @@
         <a class="doc-link doc-link-download" href="projects/bridge-plan-maker.xlsx" download>Download .xlsx ⬇</a>
       </div>
     </div>
-      <div class="project-thumb" data-img="thumbs/proj-bridge-plan-maker-demo.gif"><img src="thumbs/proj-bridge-plan-maker-demo.gif" alt="Anticoagulation Bridge Plan Maker demo: entering patient and CrCl calculator data, then viewing the generated day-by-day bridge therapy calendar" loading="lazy" style="object-fit:contain;background:#fff;"></div>
+      <div class="project-thumb" data-img="thumbs/proj-bridge-plan-maker-demo.gif"><img src="thumbs/proj-bridge-plan-maker-demo.gif" alt="Anticoagulation Bridge Plan Maker demo: entering CrCl calculator inputs, then patient and surgery details, then the Lovenox dose calculating the syringe size, then viewing the generated day-by-day bridge therapy calendar" loading="lazy" style="object-fit:contain;background:#fff;"></div>
     </div>
 
     <div class="project-card">
@@ -472,8 +477,11 @@
         <span class="chip">Clinical workflow design</span>
         <span class="chip">Protocol development</span>
       </div>
+      <div class="doc-link-row">
+        <a class="doc-link doc-link-download" href="projects/multi-state-pharmacy-compliance-database.xlsx" download>Download .xlsx (read-only) ⬇</a>
+      </div>
     </div>
-      <div class="project-thumb" data-pdf="projects/multistate-pharmacy-compliance-database.pdf"><img src="thumbs/proj-multistate-compliance.jpg" alt="" loading="lazy"></div>
+      <div class="project-thumb" data-img="thumbs/proj-multistate-compliance-demo.gif"><img src="thumbs/proj-multistate-compliance-demo.gif" alt="Multi-State Pharmacy Law Compliance Database demo: scrolling through the reference sheet covering PIC, licensure, controlled-substance, and label requirements for all 50 states" loading="lazy" style="object-fit:contain;background:#fff;"></div>
     </div>
 
     <div class="project-card">
@@ -799,6 +807,7 @@
 
 <div class="lightbox-overlay" id="lightboxOverlay">
   <div class="lightbox-content">
+    <a class="lightbox-open-new" id="lightboxOpenNew" href="#" target="_blank" rel="noopener">Open full PDF &#8599;</a>
     <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
     <iframe id="lightboxFrame" src="about:blank" title="Document preview"></iframe>
     <img id="lightboxImage" src="" alt="Enlarged tool demo">
@@ -811,10 +820,22 @@
   var frame = document.getElementById('lightboxFrame');
   var img = document.getElementById('lightboxImage');
   var closeBtn = document.getElementById('lightboxClose');
+  var openNewBtn = document.getElementById('lightboxOpenNew');
+  function isMobile(){
+    return window.matchMedia('(max-width:760px)').matches || (('ontouchstart' in window) && navigator.maxTouchPoints > 0 && window.innerWidth <= 900);
+  }
   function openLightbox(src){
+    // Mobile/touch PDF viewers embedded in an iframe often can't be scrolled with a finger.
+    // Open the PDF directly in a new tab instead, where the phone's native viewer handles scrolling and zoom.
+    if(isMobile()){
+      window.open(src, '_blank');
+      return;
+    }
     img.style.display = 'none';
     frame.style.display = 'block';
     frame.src = src + '#toolbar=0&navpanes=0&statusbar=0';
+    openNewBtn.href = src;
+    openNewBtn.classList.add('show');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -823,6 +844,7 @@
     frame.src = 'about:blank';
     img.style.display = 'block';
     img.src = src;
+    openNewBtn.classList.remove('show');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -830,6 +852,7 @@
     overlay.classList.remove('open');
     frame.src = 'about:blank';
     img.src = '';
+    openNewBtn.classList.remove('show');
     document.body.style.overflow = '';
   }
   document.querySelectorAll('.project-thumb, .presentation-thumb').forEach(function(thumb){
