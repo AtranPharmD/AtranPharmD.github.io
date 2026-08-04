@@ -716,7 +716,7 @@
   var frame = document.getElementById('lightboxFrame');
   var closeBtn = document.getElementById('lightboxClose');
   function openLightbox(src){
-    frame.src = src;
+    frame.src = src + '#toolbar=0&navpanes=0&statusbar=0';
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
