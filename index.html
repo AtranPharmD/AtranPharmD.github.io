@@ -113,8 +113,14 @@
   .doc-link-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
   .doc-link-download{color:#1f6b3c;border-color:#1f6b3c;}
   .doc-link-download:hover{background:#eaf7ef;}
-  .project-thumb{width:170px;height:130px;border-radius:10px;overflow:hidden;border:1px solid var(--border);box-shadow:0 6px 16px -10px rgba(15,58,92,.3);}
+  .project-thumb{width:170px;height:130px;border-radius:10px;overflow:hidden;border:1px solid var(--border);box-shadow:0 6px 16px -10px rgba(15,58,92,.3);position:relative;cursor:pointer;}
   .project-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .project-thumb::after,.presentation-thumb::after{
+    content:'⤢';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(15,58,92,0);color:#fff;font-size:22px;font-weight:700;
+    opacity:0;transition:opacity .15s ease,background .15s ease;pointer-events:none;
+  }
+  .project-thumb:hover::after,.presentation-thumb:hover::after{opacity:1;background:rgba(15,58,92,.45);}
 
   /* PRESENTATIONS */
   .presentations-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
@@ -125,7 +131,7 @@
   .presentation-tags{display:flex;flex-wrap:wrap;gap:6px;}
   .presentation-tags .chip{font-size:10.5px;padding:3px 10px;}
   .presentation-doc-link{display:inline-flex;margin-top:14px;font-size:11.5px;padding:5px 12px;}
-  .presentation-thumb{width:120px;height:88px;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 6px 16px -10px rgba(15,58,92,.3);}
+  .presentation-thumb{width:120px;height:88px;border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 6px 16px -10px rgba(15,58,92,.3);position:relative;cursor:pointer;}
   .presentation-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
   .placeholder-card{
     border:1.5px dashed #c7d0d8;border-radius:12px;padding:26px;text-align:center;
@@ -196,6 +202,18 @@
     .presentation-thumb{width:100%;height:140px;order:-1;}
     .residency-grid{grid-template-columns:1fr;}
     h1{font-size:28px;}
+  }
+
+  /* LIGHTBOX */
+  .lightbox-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,20,30,.82);align-items:center;justify-content:center;padding:24px;}
+  .lightbox-overlay.open{display:flex;}
+  .lightbox-content{position:relative;width:100%;max-width:900px;height:90vh;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 20px 60px -20px rgba(0,0,0,.6);}
+  .lightbox-content iframe{width:100%;height:100%;border:0;display:block;}
+  .lightbox-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--text-primary);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 4px 10px -4px rgba(0,0,0,.3);}
+  .lightbox-close:hover{background:#f2f2f2;}
+  @media (max-width:760px){
+    .lightbox-content{height:85vh;}
+    .lightbox-overlay{padding:12px;}
   }
 </style>
 </head>
@@ -363,7 +381,7 @@
         <span class="chip">Clinical workflow design</span>
       </div>
       <div class="doc-link-row">
-        <a class="doc-link" href="projects/bswh-acc-protocol.pdf" target="_blank" rel="noopener">View full document ↗</a>
+        <a class="doc-link doc-link-download" href="projects/bswh-acc-protocol.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
     </div>
       <div class="project-thumb"><img src="thumbs/proj-bswh-acc-protocol.jpg" alt="" loading="lazy"></div>
@@ -384,7 +402,7 @@
         <span class="chip">Protocol development</span>
       </div>
       <div class="doc-link-row">
-        <a class="doc-link" href="projects/ascension-specialty-rx-procedures.pdf" target="_blank" rel="noopener">View full document ↗</a>
+        <a class="doc-link doc-link-download" href="projects/ascension-specialty-rx-procedures.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
     </div>
       <div class="project-thumb"><img src="thumbs/proj-ascension-specialty-rx-procedures.jpg" alt="" loading="lazy"></div>
@@ -406,7 +424,7 @@
         <span class="chip">Pharmacy education</span>
       </div>
       <div class="doc-link-row">
-        <a class="doc-link" href="projects/waco-business-plan.pdf" target="_blank" rel="noopener">View full document ↗</a>
+        <a class="doc-link doc-link-download" href="projects/waco-business-plan.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
     </div>
       <div class="project-thumb"><img src="thumbs/proj-waco-business-plan.jpg" alt="" loading="lazy"></div>
@@ -427,7 +445,7 @@
         <span class="chip">Anticoagulation</span>
       </div>
       <div class="doc-link-row">
-        <a class="doc-link" href="projects/pgy1-doac-poster.pdf" target="_blank" rel="noopener">View poster ↗</a>
+        <a class="doc-link doc-link-download" href="projects/pgy1-doac-poster.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
     </div>
       <div class="project-thumb"><img src="thumbs/proj-pgy1-doac-poster.jpg" alt="" loading="lazy"></div>
@@ -448,7 +466,7 @@
         <span class="chip">Toxicology</span>
       </div>
       <div class="doc-link-row">
-        <a class="doc-link" href="projects/loperamide-misuse-abuse.pdf" target="_blank" rel="noopener">Read publication ↗</a>
+        <a class="doc-link doc-link-download" href="projects/loperamide-misuse-abuse.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
     </div>
       <div class="project-thumb"><img src="thumbs/proj-loperamide-misuse-abuse.jpg" alt="" loading="lazy"></div>
@@ -467,7 +485,7 @@
         <div class="presentation-meta">Baylor Scott &amp; White Health — Temple Anticoagulation Clinic · March 2025</div>
         <div class="presentation-desc">Provider-facing education on warfarin's mechanism of action, dosing and INR monitoring, and drug/disease/dietary interactions.</div>
         <div class="presentation-tags"><span class="chip">Anticoagulation</span><span class="chip">Provider education</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2025-warfarin-education.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2025-warfarin-education.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2025-warfarin-education.jpg" alt="" loading="lazy"></div>
     </div>
@@ -477,7 +495,7 @@
         <div class="presentation-meta">Patient education series · 2021</div>
         <div class="presentation-desc">Patient-facing class on diabetes medications — how they work, insulin and injectable basics, storage, avoiding mix-ups, managing missed doses, and using MyChart for refills.</div>
         <div class="presentation-tags"><span class="chip">Patient education</span><span class="chip">Diabetes</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2021-healthy-living-diabetes-medications.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2021-healthy-living-diabetes-medications.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2021-healthy-living-diabetes-medications.jpg" alt="" loading="lazy"></div>
     </div>
@@ -487,7 +505,7 @@
         <div class="presentation-meta">Baylor Scott &amp; White Health · 2020</div>
         <div class="presentation-desc">Clinical review of insulin pump therapy in T2DM, including a detailed patient case with basal-rate titration.</div>
         <div class="presentation-tags"><span class="chip">Diabetes</span><span class="chip">Insulin therapy</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2020-insulin-pump-t2dm.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2020-insulin-pump-t2dm.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2020-insulin-pump-t2dm.jpg" alt="" loading="lazy"></div>
     </div>
@@ -497,7 +515,7 @@
         <div class="presentation-meta">Baylor Scott &amp; White Health · 2020</div>
         <div class="presentation-desc">Case-based comparison of competing hypertension guideline targets, closing on individualized, patient-centered goal-setting.</div>
         <div class="presentation-tags"><span class="chip">Hypertension</span><span class="chip">Guideline review</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2020-bp-goal-130-80-vs-140-90.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2020-bp-goal-130-80-vs-140-90.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2020-bp-goal-130-80-vs-140-90.jpg" alt="" loading="lazy"></div>
     </div>
@@ -507,9 +525,9 @@
         <div class="presentation-meta">Penobscot Community Health Care · May 23, 2019</div>
         <div class="presentation-desc">Provider CE lecture on updated migraine treatment and prevention guidelines, covering the new anti-CGRP injectable preventatives (erenumab, galcanezumab, fremanezumab), their mechanism of action, and patient selection.</div>
         <div class="presentation-tags"><span class="chip">Neurology</span><span class="chip">Provider education</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2019-migraine-ce.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2019-migraine-ce.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
-      <div class="presentation-thumb"><img src="thumbs/pres-2019-migraine-ce.jpg" alt="" loading="lazy"></div>
+      <div class="presentation-thumb"><img src="thumbs/pres-2019-migraine-ce.jpg" alt="" loading="lazy" style="object-fit:contain;background:#fff;"></div>
     </div>
       <div class="presentation-card">
       <div class="presentation-card-body">
@@ -517,7 +535,7 @@
         <div class="presentation-meta">Maine Society of Health-System Pharmacists · April 6, 2019</div>
         <div class="presentation-desc">Residency research project evaluating direct oral anticoagulant use and the implementation of a pharmacist-led DOAC telephone clinic in an outpatient federally qualified health center.</div>
         <div class="presentation-tags"><span class="chip-metric chip">Residency research</span><span class="chip">Anticoagulation</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2019-mshp-doac-telephone-clinic.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2019-mshp-doac-telephone-clinic.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2019-mshp-doac-telephone-clinic.jpg" alt="" loading="lazy"></div>
     </div>
@@ -527,7 +545,7 @@
         <div class="presentation-meta">Penobscot Community Health Care · 2019 · co-authored with Jennifer Cormier, PharmD and Kacie Guerrette, PharmD</div>
         <div class="presentation-desc">PGY-1 orientation and competency framework, including a 5-week onboarding schedule and competency checklist.</div>
         <div class="presentation-tags"><span class="chip">Residency program design</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2019-pharmacist-training-business-plan.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2019-pharmacist-training-business-plan.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2019-pharmacist-training-business-plan.jpg" alt="" loading="lazy"></div>
     </div>
@@ -537,7 +555,7 @@
         <div class="presentation-meta">Penobscot Community Health Care · March 26, 2019</div>
         <div class="presentation-desc">Provider CE lecture on direct oral anticoagulants and parenteral anticoagulants, delivered as PGY-1 pharmacy resident.</div>
         <div class="presentation-tags"><span class="chip">Anticoagulation</span><span class="chip">Provider education</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2019-doac-parenteral-anticoagulants.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2019-doac-parenteral-anticoagulants.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2019-doac-parenteral-anticoagulants.jpg" alt="" loading="lazy"></div>
     </div>
@@ -547,7 +565,7 @@
         <div class="presentation-meta">Texas A&amp;M College of Pharmacy — Community rotation · September 21, 2016</div>
         <div class="presentation-desc">Case-based review of pulmonary cement embolism following vertebroplasty, presented as a 4th-year student pharmacist.</div>
         <div class="presentation-tags"><span class="chip">Case presentation</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2016-pulmonary-cement-embolism.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2016-pulmonary-cement-embolism.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2016-pulmonary-cement-embolism.jpg" alt="" loading="lazy"></div>
     </div>
@@ -557,7 +575,7 @@
         <div class="presentation-meta">Texas A&amp;M College of Pharmacy — Institutional rotation · December 15, 2016</div>
         <div class="presentation-desc">Patient case covering risk factors, diagnostic testing, and antimicrobial regimen selection for Legionnaires' disease, presented as a 4th-year student pharmacist.</div>
         <div class="presentation-tags"><span class="chip">Case presentation</span><span class="chip">Infectious disease</span></div>
-        <a class="doc-link presentation-doc-link" href="presentations/2016-legionnaires-disease.pdf" target="_blank" rel="noopener">View full presentation ↗</a>
+        <a class="doc-link doc-link-download presentation-doc-link" href="presentations/2016-legionnaires-disease.pdf" download rel="noopener">Download PDF ⬇</a>
       </div>
       <div class="presentation-thumb"><img src="thumbs/pres-2016-legionnaires-disease.jpg" alt="" loading="lazy"></div>
     </div>
@@ -712,6 +730,40 @@
 
 <div class="footer-bottom">&copy; 2026 Andrew Tran, PharmD &middot; Clinical Pharmacy Portfolio</div>
 
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
+    <iframe id="lightboxFrame" src="about:blank" title="Document preview"></iframe>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('lightboxOverlay');
+  var frame = document.getElementById('lightboxFrame');
+  var closeBtn = document.getElementById('lightboxClose');
+  function openLightbox(src){
+    frame.src = src;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    overlay.classList.remove('open');
+    frame.src = 'about:blank';
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.project-thumb, .presentation-thumb').forEach(function(thumb){
+    var card = thumb.closest('.project-card, .presentation-card');
+    if(!card) return;
+    var pdfLink = card.querySelector('a.doc-link[href$=".pdf"]');
+    if(!pdfLink) return;
+    thumb.addEventListener('click', function(){ openLightbox(pdfLink.getAttribute('href')); });
+  });
+  closeBtn.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLightbox(); });
+})();
+</script>
 
 </body>
 </html>
