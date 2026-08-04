@@ -148,6 +148,8 @@
     opacity:0;transition:opacity .15s ease,background .15s ease;pointer-events:none;
   }
   .project-thumb:hover::after,.presentation-thumb:hover::after{opacity:1;background:rgba(15,58,92,.45);}
+  .project-thumb.thumb-gif{cursor:default;}
+  .project-thumb.thumb-gif::after{content:none;}
 
   /* PRESENTATIONS */
   .presentations-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
@@ -300,9 +302,9 @@
           <div class="timeline-row"><span class="timeline-role">Engage Clinical Pharmacist</span><span class="timeline-meta">&middot; Stellus Rx &middot; Aug 2026 &ndash; Present</span><span class="timeline-caret">&#9662;</span></div>
           <div class="timeline-detail">
             <ul>
-              <li>Manages comprehensive medication management (CMM) for ambulatory care patients under a collaborative practice agreement, independently identifying and resolving drug therapy problems and adjusting regimens per clinic protocols.</li>
+              <li>Manage comprehensive medication management (CMM) for ambulatory care patients under a collaborative practice agreement, independently identifying and resolving drug therapy problems and adjusting regimens per clinic protocols.</li>
               <li>Core member of a multidisciplinary, team-based care model &mdash; partnering with physicians and clinic staff on medication refills, non-formulary requests, and serving as the team's primary drug information resource.</li>
-              <li>Delivers patient-centered medication and wellness education while maintaining full compliance with regulatory and accreditation standards (e.g., The Joint Commission).</li>
+              <li>Deliver patient-centered medication and wellness education while maintaining full compliance with regulatory and accreditation standards (e.g., The Joint Commission).</li>
             </ul>
           </div>
         </li>
@@ -418,7 +420,7 @@
         <a class="doc-link doc-link-download" href="projects/dm-treatment-algorithm.xlsx" download>Download .xlsx ⬇</a>
       </div>
     </div>
-      <div class="project-thumb" data-pdf="projects/dm-treatment-algorithm.pdf"><img src="thumbs/proj-dm-treatment-algorithm.jpg" alt="" loading="lazy"></div>
+      <div class="project-thumb thumb-gif"><img src="thumbs/proj-dm-treatment-algorithm-demo.gif" alt="Diabetes Treatment Algorithm tool demo: entering patient parameters and the CrCl/eGFR fields calculating automatically" loading="lazy" style="object-fit:contain;background:#fff;"></div>
     </div>
 
     <div class="project-card">
@@ -435,7 +437,7 @@
         <a class="doc-link doc-link-download" href="projects/bridge-plan-maker.xlsx" download>Download .xlsx ⬇</a>
       </div>
     </div>
-      <div class="project-thumb" data-pdf="projects/bridge-plan-maker.pdf"><img src="thumbs/proj-bridge-plan-maker.jpg" alt="" loading="lazy"></div>
+      <div class="project-thumb thumb-gif"><img src="thumbs/proj-bridge-plan-maker-demo.gif" alt="Anticoagulation Bridge Plan Maker demo: entering patient parameters and the CrCl calculator fields populating automatically" loading="lazy" style="object-fit:contain;background:#fff;"></div>
     </div>
 
     <div class="project-card">
@@ -459,13 +461,31 @@
 
     <div class="project-card">
       <div class="project-card-body">
+      <div class="project-tag">Compliance / Regulatory Systems</div>
+      <div class="project-title">Multi-State Pharmacy Law Compliance Database</div>
+      <div class="project-org">Built and maintained by Andrew Tran, PharmD &middot; Updated August 2026</div>
+      <div class="project-desc">Personal reference database covering pharmacist-in-charge, pharmacy/pharmacist licensure, controlled-substance, and prescription-label requirements across all 50 states + DC — built to support multi-state licensing and compliance work.</div>
+      <div class="chip-row">
+        <span class="chip chip-metric">PIC &middot; 3 states</span>
+        <span class="chip chip-metric">Pod Lead</span>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Clinical workflow design</span>
+        <span class="chip">Protocol development</span>
+      </div>
+    </div>
+      <div class="project-thumb" data-pdf="projects/multistate-pharmacy-compliance-database.pdf"><img src="thumbs/proj-multistate-compliance.jpg" alt="" loading="lazy"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-body">
       <div class="project-tag">National Rollout</div>
       <div class="project-title">Ascension Specialty Rx — Pharmacy Team Procedures</div>
-      <div class="project-org">Ascension Health — Austin, TX &middot; Version 1.0, updated 10/06/2022</div>
-      <div class="project-desc">Contributor on the pioneering Ascension Specialty Mail Order team — developed the policies and procedures governing the workflow and standard operations for the pharmacy team.</div>
+      <div class="project-org">Ascension Health — Austin, TX &middot; Originally built 2022 by Ascension Rx; redesigned and maintained by Andrew Tran, PharmD</div>
+      <div class="project-desc">Contributor on the pioneering Ascension Specialty Mail Order team — developed the combined pharmacist and pharmacy-technician procedures manual governing Therigy workflows, patient onboarding, benefits/adjudication, and day-to-day operations for the specialty pharmacy team.</div>
       <div class="chip-row">
         <span class="chip chip-metric">38 states</span>
-        <span class="chip chip-metric">1,100&ndash;1,500 Rx / day</span>
+        <span class="chip chip-metric">35-page combined manual</span>
       </div>
       <div class="chip-row">
         <span class="chip">Clinical workflow design</span>
