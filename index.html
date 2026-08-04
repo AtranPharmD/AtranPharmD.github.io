@@ -148,8 +148,6 @@
     opacity:0;transition:opacity .15s ease,background .15s ease;pointer-events:none;
   }
   .project-thumb:hover::after,.presentation-thumb:hover::after{opacity:1;background:rgba(15,58,92,.45);}
-  .project-thumb.thumb-gif{cursor:default;}
-  .project-thumb.thumb-gif::after{content:none;}
 
   /* PRESENTATIONS */
   .presentations-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
@@ -238,6 +236,7 @@
   .lightbox-overlay.open{display:flex;}
   .lightbox-content{position:relative;width:100%;max-width:900px;height:90vh;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 20px 60px -20px rgba(0,0,0,.6);}
   .lightbox-content iframe{width:100%;height:100%;border:0;display:block;}
+  .lightbox-content img{width:100%;height:100%;border:0;display:none;object-fit:contain;background:#fff;}
   .lightbox-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--text-primary);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 4px 10px -4px rgba(0,0,0,.3);}
   .lightbox-close:hover{background:#f2f2f2;}
   @media (max-width:760px){
@@ -420,7 +419,7 @@
         <a class="doc-link doc-link-download" href="projects/dm-treatment-algorithm.xlsx" download>Download .xlsx ⬇</a>
       </div>
     </div>
-      <div class="project-thumb thumb-gif"><img src="thumbs/proj-dm-treatment-algorithm-demo.gif" alt="Diabetes Treatment Algorithm tool demo: entering patient parameters and the CrCl/eGFR fields calculating automatically" loading="lazy" style="object-fit:contain;background:#fff;"></div>
+      <div class="project-thumb" data-img="thumbs/proj-dm-treatment-algorithm-demo.gif"><img src="thumbs/proj-dm-treatment-algorithm-demo.gif" alt="Diabetes Treatment Algorithm tool demo: entering patient parameters and the CrCl/eGFR fields calculating automatically" loading="lazy" style="object-fit:contain;background:#fff;"></div>
     </div>
 
     <div class="project-card">
@@ -437,7 +436,7 @@
         <a class="doc-link doc-link-download" href="projects/bridge-plan-maker.xlsx" download>Download .xlsx ⬇</a>
       </div>
     </div>
-      <div class="project-thumb thumb-gif"><img src="thumbs/proj-bridge-plan-maker-demo.gif" alt="Anticoagulation Bridge Plan Maker demo: entering patient parameters and the CrCl calculator fields populating automatically" loading="lazy" style="object-fit:contain;background:#fff;"></div>
+      <div class="project-thumb" data-img="thumbs/proj-bridge-plan-maker-demo.gif"><img src="thumbs/proj-bridge-plan-maker-demo.gif" alt="Anticoagulation Bridge Plan Maker demo: entering patient parameters and the CrCl calculator fields populating automatically" loading="lazy" style="object-fit:contain;background:#fff;"></div>
     </div>
 
     <div class="project-card">
@@ -802,6 +801,7 @@
   <div class="lightbox-content">
     <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
     <iframe id="lightboxFrame" src="about:blank" title="Document preview"></iframe>
+    <img id="lightboxImage" src="" alt="Enlarged tool demo">
   </div>
 </div>
 
@@ -809,21 +809,37 @@
 (function(){
   var overlay = document.getElementById('lightboxOverlay');
   var frame = document.getElementById('lightboxFrame');
+  var img = document.getElementById('lightboxImage');
   var closeBtn = document.getElementById('lightboxClose');
   function openLightbox(src){
+    img.style.display = 'none';
+    frame.style.display = 'block';
     frame.src = src + '#toolbar=0&navpanes=0&statusbar=0';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function openImageLightbox(src){
+    frame.style.display = 'none';
+    frame.src = 'about:blank';
+    img.style.display = 'block';
+    img.src = src;
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeLightbox(){
     overlay.classList.remove('open');
     frame.src = 'about:blank';
+    img.src = '';
     document.body.style.overflow = '';
   }
   document.querySelectorAll('.project-thumb, .presentation-thumb').forEach(function(thumb){
     var pdfPath = thumb.getAttribute('data-pdf');
-    if(!pdfPath) return;
-    thumb.addEventListener('click', function(){ openLightbox(pdfPath); });
+    var imgPath = thumb.getAttribute('data-img');
+    if(pdfPath){
+      thumb.addEventListener('click', function(){ openLightbox(pdfPath); });
+    } else if(imgPath){
+      thumb.addEventListener('click', function(){ openImageLightbox(imgPath); });
+    }
   });
   document.querySelectorAll('.hero-cv-view').forEach(function(btn){
     var pdfPath = btn.getAttribute('data-pdf');
