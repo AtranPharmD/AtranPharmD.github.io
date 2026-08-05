@@ -911,5 +911,21 @@
 })();
 </script>
 
+<script>
+(function(){
+  var navToggle = document.getElementById('nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  if(!navToggle || !navLinks) return;
+  navLinks.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){ navToggle.checked = false; });
+  });
+  document.addEventListener('click', function(e){
+    if(!navToggle.checked) return;
+    var withinMenu = navLinks.contains(e.target) || e.target.closest('.nav-toggle-label');
+    if(!withinMenu){ navToggle.checked = false; }
+  });
+})();
+</script>
+
 </body>
 </html>
