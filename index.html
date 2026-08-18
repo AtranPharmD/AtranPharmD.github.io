@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build v80 -->
+<!-- build v81 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -82,6 +82,11 @@
     border:1px solid var(--border);box-shadow:0 12px 30px -14px rgba(15,58,92,.35);
   }
   .hero-photo img{width:100%;height:auto;display:block;}
+  .hero-photo-col{display:flex;flex-direction:column;gap:18px;}
+  .hero-badges{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .hero-badge{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;}
+  .hero-badge-headline{font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:4px;line-height:1.25;}
+  .hero-badge-sub{font-size:10.5px;color:var(--text-muted);line-height:1.3;}
 
   /* SECTION HEADERS */
   .section{padding:56px 0;}
@@ -237,7 +242,8 @@
     .nav-cv-link{display:block;color:var(--navy);font-weight:700;}
     .wrap{padding:0 20px;}
     .hero-grid{grid-template-columns:1fr;}
-    .hero-photo{order:-1;max-width:220px;}
+    .hero-photo{max-width:220px;margin:0 auto;}
+    .hero-photo-col{max-width:320px;margin:0 auto;}
     .stats-grid{grid-template-columns:repeat(2,1fr);}
     .impact-grid{grid-template-columns:repeat(2,1fr);}
     .pillars-grid{grid-template-columns:1fr;}
@@ -317,7 +323,15 @@
         <a href="#work" class="btn btn-ghost">Portfolio</a>
       </div>
     </div>
-    <div class="hero-photo"><img src="images/headshot.jpg" alt="Andrew Tran"></div>
+    <div class="hero-photo-col">
+      <div class="hero-photo"><img src="images/headshot.jpg" alt="Andrew Tran"></div>
+      <div class="hero-badges">
+        <div class="hero-badge"><div class="hero-badge-headline">PGY-1 Residency</div><div class="hero-badge-sub">Ambulatory Care</div></div>
+        <div class="hero-badge"><div class="hero-badge-headline">7 years</div><div class="hero-badge-sub">Chronic disease management</div></div>
+        <div class="hero-badge"><div class="hero-badge-headline">4 states</div><div class="hero-badge-sub">TX &middot; OR &middot; MI &middot; LA licensure</div></div>
+        <div class="hero-badge"><div class="hero-badge-headline">Board Certified</div><div class="hero-badge-sub">BCACP &middot; CDCES</div></div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -325,12 +339,6 @@
   <div class="wrap">
     <div class="kicker">A little about</div>
     <h2>Background</h2>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-headline">PGY-1 Residency</div><div class="stat-sub">Ambulatory Care</div></div>
-      <div class="stat-card"><div class="stat-headline">7 years</div><div class="stat-sub">Chronic disease management</div></div>
-      <div class="stat-card"><div class="stat-headline">4 states</div><div class="stat-sub">TX &middot; OR &middot; MI &middot; LA licensure</div></div>
-      <div class="stat-card"><div class="stat-headline">BCACP &middot; CDCES</div><div class="stat-sub">Board certified</div></div>
-    </div>
     <p class="about-bio">I've been a clinical pharmacist for over seven years across a variety of settings — federally qualified health centers (FQHCs), anticoagulation clinics, community-oriented primary care clinics (COPCs), specialty mail-order operations, and telehealth. I completed my PGY-1 Community Pharmacy residency with a specialization in Ambulatory Care. My experience spans chronic disease management under collaborative practice agreements (CPAs), protocol development, clinical tools &amp; workflow creation, multi-state pharmacy law compliance, specialty pharmacy accreditation standards, and patient education.</p>
 
     <div class="impact-label">Impact across roles</div>
