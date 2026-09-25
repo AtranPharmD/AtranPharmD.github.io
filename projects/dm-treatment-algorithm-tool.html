@@ -1,0 +1,1044 @@
+<!-- build v6 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diabetes Treatment Algorithm — Interactive | Andrew Tran, PharmD</title>
+<style>
+:root{
+  --board-header:#12151b;
+  --board-dark:#1b2028;
+  --grid-line:#d7dbe1;
+  --cyan:#2fc4de;
+  --cyan-dark:#0f8fa8;
+  --orange:#ff8a3d;
+  --orange-dark:#c85f1c;
+  --purple:#8b6fd8;
+  --purple-dark:#5f45a8;
+  --yellow:#ffce3d;
+  --yellow-dark:#b8890a;
+  --teal:#2ec4b6;
+  --teal-dark:#1a8c80;
+  --pink:#ff6fa3;
+  --pink-dark:#c8407a;
+  --green:#4cb96f;
+  --green-dark:#2f8a4e;
+  --red:#e5484d;
+  --red-dark:#a82e32;
+  --text-primary:#1a2028;
+  --text-secondary:#4a5568;
+  --text-muted:#8a94a3;
+  --page-bg:#f4f6f8;
+  --card-bg:#ffffff;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text-primary);background:var(--page-bg);line-height:1.5;}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+
+header.top{background:var(--board-header);padding:26px 0 0;}
+.eyebrow{font-size:11px;letter-spacing:.1em;font-weight:700;color:var(--cyan);text-transform:uppercase;margin-bottom:8px;}
+h1{font-size:24px;font-weight:800;margin:0 0 6px;color:#fff;line-height:1.25;}
+.subtitle{font-size:13.5px;color:#aab2bd;max-width:660px;margin:0 0 18px;}
+.byline{font-size:12px;color:#7d8694;margin-bottom:20px;}
+.byline a{color:var(--cyan);}
+
+nav.tabs{display:flex;gap:0;border-top:1px solid #2a303b;}
+.tab-btn{flex:1;appearance:none;background:transparent;border:none;color:#8a94a3;font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:14px 10px;cursor:pointer;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;}
+.tab-btn:hover{color:#dfe3e8;}
+.tab-btn.active{color:#fff;border-bottom-color:var(--cyan);}
+
+main{padding:30px 0 70px;}
+.panel{display:none;}
+.panel.active{display:block;}
+
+.disclaimer{background:#fff7e0;border:1px solid #ecd9a8;color:#7a5209;font-size:12px;border-radius:8px;padding:10px 14px;margin-bottom:22px;line-height:1.5;}
+.disclaimer b{color:#5c3d06;}
+
+.board-card{background:var(--card-bg);border:1px solid var(--grid-line);border-radius:10px;margin-bottom:20px;overflow:hidden;}
+.board-card-head{background:var(--board-dark);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:10px 18px;}
+.board-card-body{padding:20px;}
+
+.field-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:11.5px;color:var(--text-secondary);font-weight:700;}
+.field input,.field select{border:1px solid var(--grid-line);border-radius:6px;padding:8px 9px;font-size:13.5px;font-family:inherit;color:var(--text-primary);}
+.field input:focus,.field select:focus{outline:2px solid var(--cyan-dark);outline-offset:1px;}
+
+.result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--grid-line);border:1px solid var(--grid-line);border-radius:8px;overflow:hidden;margin-top:16px;}
+.result-cell{background:#fff;padding:14px 16px;}
+.result-cell .rc-label{font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+.result-cell .rc-value{font-size:20px;font-weight:800;color:var(--text-primary);}
+.result-cell.tag-cyan{background:#e8fafd;}
+.result-cell.tag-cyan .rc-value{color:var(--cyan-dark);}
+
+.chip{display:inline-block;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:4px 11px;border-radius:5px;color:#fff;}
+.chip.cyan{background:var(--cyan-dark);}
+.chip.orange{background:var(--orange-dark);}
+.chip.purple{background:var(--purple-dark);}
+.chip.yellow{background:var(--yellow-dark);}
+.chip.teal{background:var(--teal-dark);}
+.chip.pink{background:var(--pink-dark);}
+.chip.red{background:var(--red-dark);}
+.chip.green{background:var(--green-dark);}
+
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--grid-line);border:1px solid var(--grid-line);border-radius:8px;overflow:hidden;}
+.check-item{background:#fff;display:flex;align-items:flex-start;gap:10px;padding:13px 16px;cursor:pointer;}
+.check-item input{margin-top:3px;flex-shrink:0;}
+.check-item .ci-label{font-size:13px;font-weight:700;color:var(--text-primary);}
+.check-item .ci-sub{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.check-item.on-cyan.checked{background:#e8fafd;}
+.check-item.on-orange.checked{background:#fff0e6;}
+.check-item.on-purple.checked{background:#f1ecfc;}
+.check-item.on-yellow.checked{background:#fff9e0;}
+.check-item.on-teal.checked{background:#e6f9f7;}
+.check-item.on-pink.checked{background:#ffeef4;}
+
+.flag-row{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--grid-line);border-radius:8px;padding:13px 16px;margin-bottom:14px;cursor:pointer;}
+.flag-row.checked{border-color:var(--red);background:#fdeceb;}
+.flag-row input{margin-top:3px;}
+.flag-row .fl-label{font-size:13px;font-weight:700;}
+.flag-row .fl-sub{font-size:11px;color:var(--text-muted);margin-top:2px;}
+
+.btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.btn{appearance:none;border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;font-family:inherit;}
+.btn-primary{background:var(--board-dark);color:#fff;}
+.btn-primary:hover{background:#000;}
+.btn-ghost{background:transparent;color:var(--text-secondary);border:1px solid var(--grid-line);}
+.btn-ghost:hover{border-color:var(--text-secondary);}
+
+#dmResults,#insulinInitResults,#insulinAdjResults,#icodecResults{display:none;margin-top:18px;}
+#dmResults.show,#insulinInitResults.show,#insulinAdjResults.show,#icodecResults.show{display:block;}
+
+.result-alert{border-radius:8px;padding:13px 16px;margin-bottom:12px;font-size:13px;line-height:1.55;}
+.result-alert.urgent{background:#fdeceb;border:1px solid #f0c4c1;color:#8c2a25;}
+.result-alert.urgent b{color:var(--red-dark);}
+.result-alert.info{background:#fff7e0;border:1px solid #ecd9a8;color:#7a5209;}
+
+.rec-card{border:1px solid var(--grid-line);border-radius:8px;padding:16px 18px;margin-bottom:12px;background:#fff;border-left:5px solid var(--cyan-dark);}
+.rec-card h3{font-size:14.5px;margin:8px 0 6px;color:var(--text-primary);}
+.rec-card p{font-size:13px;color:var(--text-secondary);margin:0 0 6px;}
+.rec-card .rec-cite{font-size:10.5px;color:var(--text-muted);font-style:italic;}
+
+table.data-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+table.data-table th{text-align:left;background:var(--board-dark);color:#fff;font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:.03em;padding:8px 10px;}
+table.data-table td{padding:9px 10px;border-bottom:1px solid var(--grid-line);color:var(--text-secondary);}
+table.data-table tr:nth-child(even) td{background:#f7f9fb;}
+
+.reassess-note{background:#eef8fb;border-radius:8px;padding:13px 16px;font-size:12.5px;color:var(--text-secondary);margin-top:8px;border:1px solid #cdeaf1;}
+
+.smbg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--grid-line);border:1px solid var(--grid-line);border-radius:8px;overflow:hidden;}
+.smbg-cell{background:#fff;padding:12px 14px;}
+.smbg-cell label{display:block;font-size:11px;font-weight:700;color:var(--text-secondary);margin-bottom:6px;}
+.smbg-cell input{width:100%;border:1px solid var(--grid-line);border-radius:6px;padding:7px 8px;font-size:13px;font-family:inherit;}
+.smbg-cell input.flag-low{background:#fdeceb;border-color:var(--red);}
+.smbg-cell input.flag-high{background:#f1ecfc;border-color:var(--purple);}
+
+.goals-panel{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--grid-line);border:1px solid var(--grid-line);border-radius:8px;overflow:hidden;margin-top:16px;}
+.goals-panel .gp-cell{background:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;}
+.goals-panel .gp-label{font-size:12.5px;color:var(--text-secondary);font-weight:600;}
+.goals-panel .gp-value{font-size:13.5px;font-weight:800;color:var(--text-primary);}
+
+.field-hint{font-size:11px;color:var(--text-muted);margin-top:8px;}
+
+details.ref{border:1px solid var(--grid-line);border-radius:8px;padding:14px 18px;margin-top:18px;background:#fff;}
+details.ref summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--text-primary);}
+
+footer{border-top:1px solid var(--grid-line);padding:22px 0;text-align:center;font-size:11.5px;color:var(--text-muted);margin-top:20px;}
+footer a{color:var(--cyan-dark);}
+
+@media (max-width:760px){
+  .field-row{grid-template-columns:1fr 1fr;}
+  .result-grid{grid-template-columns:1fr 1fr;}
+  .check-grid{grid-template-columns:1fr;}
+  .smbg-grid{grid-template-columns:1fr 1fr;}
+  .goals-panel{grid-template-columns:1fr;}
+  nav.tabs{flex-wrap:wrap;}
+  .tab-btn{flex:1 1 50%;}
+  h1{font-size:20px;}
+}
+  .algo-chart{border:1px solid var(--grid-line);border-radius:10px;overflow:hidden;margin-bottom:20px;}
+  .algo-lifestyle{background:#eef3f7;color:var(--navy,#0f3a5c);font-size:11.5px;font-weight:700;text-align:center;padding:10px 14px;border-bottom:1px solid var(--grid-line);}
+  .algo-goal-bar{padding:9px 16px;color:#fff;font-weight:800;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;text-align:center;}
+  .algo-goal-bar.cardiorenal{background:var(--red-dark);}
+  .algo-goal-bar.weightgly{background:var(--orange-dark);}
+  .algo-grid{display:grid;gap:10px;padding:14px;background:#fafbfc;border-bottom:1px solid var(--grid-line);}
+  .algo-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .algo-grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  .algo-box{position:relative;background:#fff;border:2px solid var(--grid-line);border-radius:8px;padding:11px 12px;font-size:11px;color:var(--text-secondary);line-height:1.4;transition:border-color .2s,box-shadow .2s;}
+  .algo-box .algo-box-title{font-weight:800;font-size:11.5px;color:var(--text-primary);margin-bottom:5px;}
+  .algo-box.hit{border-color:var(--red);box-shadow:0 0 0 3px rgba(229,72,77,.15);}
+  .algo-marker{display:none;position:absolute;top:-11px;right:-11px;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;align-items:center;justify-content:center;font-size:12px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,.3);}
+  .algo-box.hit .algo-marker{display:flex;}
+  .algo-masld{padding:12px 14px;background:#fff;}
+  .algo-masld .algo-box{border-width:2px;}
+  .algo-caption{padding:10px 14px;background:#fff;font-size:10.5px;color:var(--text-muted);}
+  @media (max-width:760px){
+    .algo-grid.cols-3, .algo-grid.cols-2{grid-template-columns:1fr;}
+  }
+  .algo-main-grid{display:grid;grid-template-columns:1fr 1fr;}
+  .algo-col-left{border-right:1px solid var(--grid-line);}
+  .algo-subnote{margin-top:8px;padding-top:7px;border-top:1px dashed var(--grid-line);font-size:10px;color:var(--text-muted);line-height:1.4;}
+  .algo-connector-box{background:#fff;border:1px dashed #bcc3cc;border-radius:8px;padding:9px 12px;margin:0 14px 14px;font-size:10.5px;color:var(--text-secondary);text-align:center;font-weight:700;}
+  .algo-efficacy{margin-top:8px;}
+  .algo-efficacy-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--text-muted);margin-bottom:4px;}
+  .algo-efficacy-row{display:flex;gap:8px;padding:4px 0;font-size:10.5px;border-top:1px solid var(--grid-line);}
+  .algo-efficacy-row:first-child{border-top:none;}
+  .algo-efficacy-tier{font-weight:800;flex-shrink:0;width:72px;}
+  .algo-efficacy-tier.very-high{color:var(--red-dark);}
+  .algo-efficacy-tier.high{color:var(--orange-dark);}
+  .algo-efficacy-tier.intermediate{color:var(--yellow-dark);}
+  .algo-efficacy-tier.neutral{color:var(--text-muted);}
+  .algo-efficacy-agents{color:var(--text-secondary);}
+  .algo-footnotes{padding:12px 16px;background:#fff;font-size:9.5px;color:var(--text-muted);line-height:1.6;border-top:1px solid var(--grid-line);}
+  .algo-footnotes b{color:var(--text-secondary);}
+  .algo-dsmes{background:#fff;border:2px solid var(--grid-line);border-radius:8px;padding:12px 14px;margin:0 14px 14px;font-size:11px;color:var(--text-secondary);}
+  .algo-dsmes .algo-box-title{font-weight:800;font-size:11.5px;color:var(--text-primary);margin-bottom:6px;}
+  .algo-dsmes ul{margin:0;padding-left:16px;}
+  .algo-dsmes li{margin-bottom:4px;}
+  @media (max-width:760px){
+    .algo-main-grid{grid-template-columns:1fr;}
+    .algo-col-left{border-right:none;border-bottom:1px solid var(--grid-line);}
+    .algo-efficacy-row{flex-direction:column;gap:2px;}
+    .algo-efficacy-tier{width:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Clinical Decision Support &middot; Interactive Tool</div>
+    <h1>Diabetes Treatment Algorithm</h1>
+    <p class="subtitle">An interactive version of the full spreadsheet tool — patient parameter calculators, ADA 2026 comorbidity-driven medication selection, insulin dosing, and SMBG tracking.</p>
+    <div class="byline">Built by <a href="https://atranpharmd.github.io" target="_blank" rel="noopener">Andrew Tran, PharmD, BCACP, CDCES</a> — Ambulatory Care Clinical Pharmacist</div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-panel="patientInfo">Patient Info &amp; Medications</button>
+      <button class="tab-btn" data-panel="insulin">Insulin</button>
+      <button class="tab-btn" data-panel="smbg">SMBG</button>
+      <button class="tab-btn" data-panel="medref">Medications</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="disclaimer"><b>For educational / clinical reference use only.</b> This tool summarizes published guideline recommendations and standard dosing formulas — it does not replace clinical judgment and is not a substitute for current FDA prescribing information. Verify all calculated values and recommendations before applying them to patient care.</div>
+
+    <!-- PATIENT INFO PANEL -->
+    <section class="panel active" id="patientInfo">
+      <div class="board-card">
+        <div class="board-card-head">Input Patient Parameters</div>
+        <div class="board-card-body">
+          <div class="field-row">
+            <div class="field"><label for="piAge">Age (years)</label><input type="number" id="piAge"></div>
+            <div class="field"><label for="piSex">Sex</label>
+              <select id="piSex"><option value="male">Male</option><option value="female">Female</option></select>
+            </div>
+            <div class="field"><label for="piWeight">Weight (kg)</label><input type="number" id="piWeight" step="0.1"></div>
+            <div class="field"><label for="piHeight">Height (in)</label><input type="number" id="piHeight" step="0.1"></div>
+          </div>
+          <div class="field-row" style="margin-top:14px;">
+            <div class="field"><label for="piScr">Serum Creatinine (mg/dL)</label><input type="number" id="piScr" step="0.01"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="calcPI">Calculate</button>
+            <button class="btn btn-ghost" id="resetPI">Reset</button>
+          </div>
+          <div class="result-grid" id="piResults" style="display:none;">
+            <div class="result-cell tag-cyan"><div class="rc-label">Ideal Body Weight</div><div class="rc-value" id="rIBW">—</div></div>
+            <div class="result-cell tag-cyan"><div class="rc-label">Adjusted Body Weight</div><div class="rc-value" id="rABW">—</div></div>
+            <div class="result-cell tag-cyan"><div class="rc-label">BMI</div><div class="rc-value" id="rBMI">—</div></div>
+            <div class="result-cell tag-cyan"><div class="rc-label">CrCl (Cockcroft-Gault)</div><div class="rc-value" id="rCrCl">—</div></div>
+            <div class="result-cell tag-cyan" style="grid-column:span 2;"><div class="rc-label">eGFR (CKD-EPI 2021)</div><div class="rc-value" id="rEGFR">—</div></div>
+          </div>
+          <div class="field-hint">IBW: Devine formula. ABW = IBW + 0.4 &times; (actual&nbsp;&minus;&nbsp;IBW), shown for reference — typically applied for dosing when actual weight exceeds ~120% of IBW. CrCl: Cockcroft-Gault (uses actual body weight, or adjusted body weight if obese). eGFR: CKD-EPI creatinine equation, applied race-free.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Medical History</div>
+        <div class="board-card-body">
+          <div class="check-grid" id="historyGrid">
+            <label class="check-item on-orange" data-key="ascvd"><input type="checkbox"><div><div class="ci-label">ASCVD</div><div class="ci-sub">Established or high-risk atherosclerotic cardiovascular disease</div></div></label>
+            <label class="check-item on-purple" data-key="hf"><input type="checkbox"><div><div class="ci-label">Heart Failure</div><div class="ci-sub">HFrEF or HFpEF</div></div></label>
+            <label class="check-item on-teal" data-key="ckd"><input type="checkbox"><div><div class="ci-label">Chronic Kidney Disease</div><div class="ci-sub">eGFR &lt; 60 mL/min and/or UACR &gt; 30 mg/g</div></div></label>
+            <label class="check-item on-yellow" data-key="obesity"><input type="checkbox"><div><div class="ci-label">Obesity / Overweight</div><div class="ci-sub">BMI &ge; 27 with comorbidity, or BMI &ge; 30</div></div></label>
+            <label class="check-item on-pink" data-key="masld"><input type="checkbox"><div><div class="ci-label">MASLD / MASH</div><div class="ci-sub">Steatotic liver disease / steatohepatitis</div></div></label>
+            <label class="check-item on-cyan" data-key="metforminContra"><input type="checkbox"><div><div class="ci-label">Metformin contraindicated</div><div class="ci-sub">e.g. eGFR &lt; 30, GI intolerance</div></div></label>
+          </div>
+          <div class="field-hint">These flow directly into the medication recommendation below.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Signs of Marked Hyperglycemia / Catabolism</div>
+        <div class="board-card-body">
+          <label class="flag-row" id="flagRow">
+            <input type="checkbox" id="catabolic">
+            <div><div class="fl-label">Catabolic signs present (weight loss, polyuria/polydipsia, ketosis) — or BG/A1C above thresholds</div>
+            <div class="fl-sub">ADA 2026: consider early insulin if BG &gt; 300 mg/dL, A1C &gt; 10%, or catabolism.</div></div>
+          </label>
+          <div class="field-row">
+            <div class="field"><label for="a1c">A1C (%)</label><input type="number" id="a1c" step="0.1"></div>
+            <div class="field"><label for="bg">Random/fasting BG (mg/dL)</label><input type="number" id="bg"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="generateBtn">Generate recommendation</button>
+            <button class="btn btn-ghost" id="resetDM">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="dmResults">
+        <div id="resultsBody"></div>
+        <div class="reassess-note"><b>ADA 2026 reminder:</b> whenever a new glucose-lowering medication is added, reassess the need for and dose of hypoglycemia-prone agents (sulfonylureas, meglitinides, insulin) to reduce hypoglycemia risk and treatment burden.</div>
+      </div>
+
+      <div class="algo-chart" id="algoChart">
+        <div class="algo-lifestyle">Healthy lifestyle behaviors &middot; diabetes self-management education &amp; support &middot; social determinants of health</div>
+
+        <div class="algo-main-grid">
+          <!-- LEFT: CARDIORENAL -->
+          <div class="algo-col-left">
+            <div class="algo-goal-bar cardiorenal">Goal: Cardiovascular &amp; Kidney Risk Reduction*</div>
+            <div class="algo-grid cols-3">
+              <div class="algo-box" id="algo-ascvd">
+                <span class="algo-marker">&#9679;</span>
+                <div class="algo-box-title">+ASCVD / Indicators of High CVD Risk&dagger;</div>
+                GLP-1 RA with proven CVD benefit, <i>or</i> SGLT2i with proven CVD benefit.
+                <div class="algo-subnote"><b>If glycemia above goal:</b> for individuals on a GLP-1 RA, consider adding SGLT2i with proven benefit (or vice versa); pioglitazone.</div>
+              </div>
+              <div class="algo-box" id="algo-hf">
+                <span class="algo-marker">&#9679;</span>
+                <div class="algo-box-title">+HF</div>
+                SGLT2i with proven HF benefit in current or prior symptoms of HFrEF or HFpEF.
+                <div class="algo-subnote">SGLT2i and/or either dual GIP/GLP-1 RA or GLP-1 RA with proven benefit in symptomatic HFpEF and obesity.</div>
+              </div>
+              <div class="algo-box" id="algo-ckd">
+                <span class="algo-marker">&#9679;</span>
+                <div class="algo-box-title">+CKD</div>
+                eGFR &lt;60 mL/min/1.73m&sup2; or albuminuria (UACR &ge;30 mg/g), on max-tolerated ACEi/ARB:
+                SGLT2i with primary evidence of reducing CKD progression (eGFR &ge;20; efficacy reduced &lt;45) <i>or</i> GLP-1 RA with proven CKD benefit.
+                <div class="algo-subnote"><b>If glycemia above goal:</b> for individuals on SGLT2i, consider incorporating a GLP-1 RA (or vice versa).</div>
+              </div>
+            </div>
+            <div class="algo-connector-box">If additional cardiovascular &amp; kidney risk reduction, management of other metabolic comorbidities, and/or glycemic lowering is needed &darr;</div>
+            <div class="algo-masld">
+              <div class="algo-box" id="algo-masld">
+                <span class="algo-marker">&#9679;</span>
+                <div class="algo-box-title">+Mitigating Risk of MASLD / MASH</div>
+                Agents with proven or potential benefit: GLP-1 RA, dual GIP/GLP-1 RA, pioglitazone, or a combination of GLP-1 RA with pioglitazone.
+                <div class="algo-subnote">Use insulin in the setting of decompensated cirrhosis.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: WEIGHT & GLYCEMIC -->
+          <div class="algo-col-right">
+            <div class="algo-goal-bar weightgly">Goal: Achievement &amp; Maintenance of Weight &amp; Glycemic Goals</div>
+            <div class="algo-grid cols-2">
+              <div class="algo-box" id="algo-weight">
+                <span class="algo-marker">&#9679;</span>
+                <div class="algo-box-title">+Weight Management</div>
+                <div class="algo-efficacy">
+                  <div class="algo-efficacy-title">Efficacy for weight loss</div>
+                  <div class="algo-efficacy-row"><span class="algo-efficacy-tier very-high">Very high</span><span class="algo-efficacy-agents">Semaglutide, tirzepatide</span></div>
+                  <div class="algo-efficacy-row"><span class="algo-efficacy-tier high">High</span><span class="algo-efficacy-agents">Dulaglutide, liraglutide</span></div>
+                  <div class="algo-efficacy-row"><span class="algo-efficacy-tier intermediate">Intermediate</span><span class="algo-efficacy-agents">GLP-1 RA (not listed above), SGLT2i</span></div>
+                  <div class="algo-efficacy-row"><span class="algo-efficacy-tier neutral">Neutral</span><span class="algo-efficacy-agents">Metformin, DPP-4i</span></div>
+                </div>
+              </div>
+              <div class="algo-box" id="algo-glycemic">
+                <span class="algo-marker">&#9679;</span>
+                <div class="algo-box-title">+Achievement &amp; Maintenance of Glycemic Goals</div>
+                Metformin or other agent (incl. combination therapy) that provides adequate efficacy to achieve/maintain glycemic goals. Prioritize avoidance of hypoglycemia in high-risk individuals.
+                <div class="algo-efficacy">
+                  <div class="algo-efficacy-title">Efficacy for glucose lowering</div>
+                  <div class="algo-efficacy-row"><span class="algo-efficacy-tier very-high">Very high</span><span class="algo-efficacy-agents">Dulaglutide (high dose), semaglutide, tirzepatide, insulin, combination oral/injectable (GLP-1 RA + insulin)</span></div>
+                  <div class="algo-efficacy-row"><span class="algo-efficacy-tier high">High</span><span class="algo-efficacy-agents">GLP-1 RA (not listed above), metformin, pioglitazone, SGLT2i, sulfonylurea</span></div>
+                  <div class="algo-efficacy-row"><span class="algo-efficacy-tier intermediate">Intermediate</span><span class="algo-efficacy-agents">DPP-4i</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="algo-connector-box">If glycemia above goal, or significant hypoglycemia/hyperglycemia, or barriers to care identified &darr;</div>
+            <div class="algo-dsmes">
+              <div class="algo-box-title">Address Barriers to Care</div>
+              <ul>
+                <li>Refer to DSMES (diabetes self-management education and support) to support self-efficacy in achieving treatment goals.</li>
+                <li>Consider technology (e.g., diagnostic or personal CGM) to identify therapeutic gaps and tailor therapy.</li>
+                <li>Identify and address social determinants of health (SDOH) that affect achievement of treatment goals.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="algo-footnotes">
+          <b>*</b> In people with HF, CKD, established CVD, or multiple risk factors for CVD, the decision to use a GLP-1 RA or SGLT2i with proven benefit should be made irrespective of glycemic goal attainment.<br>
+          <b>&dagger;</b> ASCVD: established CVD (e.g., MI, stroke, arterial revascularization). Indicators of high risk: most definitions comprise &ge;55 years of age with two or more additional risk factors (obesity, hypertension, smoking, dyslipidemia, or albuminuria).<br>
+          <b>&Dagger;</b> Low-dose pioglitazone may be better tolerated and similarly effective as higher doses.<br>
+          For SGLT2i and GLP-1 RA/GIP-GLP-1 RA specific product benefits, see the Medications tab.
+        </div>
+
+        <div class="algo-caption">The red marker shows which ADA goal pathway(s) this patient's selected risk factors fall under, updated each time you generate a recommendation. Adapted from ADA Standards of Care in Diabetes, Fig. 9.4 (Use of glucose-lowering medications in the management of type 2 diabetes) &mdash; original diagram, not a reproduction of the published figure.</div>
+      </div>
+
+      <details class="ref">
+        <summary>Drug class quick reference (SGLT2i / GLP-1 &amp; GIP-GLP-1 RA)</summary>
+        <table class="data-table" style="margin-top:12px;">
+          <tr><th>Class</th><th>Agent</th><th>Notable benefit</th><th>Typical starting dose</th></tr>
+          <tr><td>SGLT2i</td><td>Empagliflozin (Jardiance)</td><td>CVD + HF + renal</td><td>10 mg PO daily</td></tr>
+          <tr><td>SGLT2i</td><td>Dapagliflozin (Farxiga)</td><td>HF + renal</td><td>5 mg PO daily</td></tr>
+          <tr><td>SGLT2i</td><td>Canagliflozin (Invokana)</td><td>CVD + renal</td><td>100 mg PO daily</td></tr>
+          <tr><td>GLP-1 RA</td><td>Semaglutide (Ozempic)</td><td>CVD; weight</td><td>0.25 mg SQ weekly &times;4wk</td></tr>
+          <tr><td>GLP-1 RA</td><td>Dulaglutide (Trulicity)</td><td>CVD</td><td>0.75 mg SQ weekly</td></tr>
+          <tr><td>GLP-1 RA</td><td>Liraglutide (Victoza)</td><td>CVD</td><td>0.6 mg SQ daily &times;1wk</td></tr>
+          <tr><td>GIP/GLP-1 RA</td><td>Tirzepatide (Mounjaro)</td><td>Weight; HFpEF (guideline-based)</td><td>2.5 mg SQ weekly &times;4wk</td></tr>
+          <tr><td>Foundational</td><td>Metformin</td><td>—</td><td>500 mg PO BID; max 2000&ndash;2550 mg/day</td></tr>
+        </table>
+      </details>
+    </section>
+
+    <!-- INSULIN PANEL -->
+    <section class="panel" id="insulin">
+      <div class="board-card">
+        <div class="board-card-head">Initiating Insulin — Type 2 Diabetes</div>
+        <div class="board-card-body">
+          <div class="field-row">
+            <div class="field"><label for="t2Weight">Weight (kg)</label><input type="number" id="t2Weight" step="0.1"></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-primary" id="calcInsulinInit">Calculate starting basal dose</button></div>
+          <div id="insulinInitResults">
+            <div class="result-grid" style="margin-top:16px;">
+              <div class="result-cell tag-cyan" style="grid-column:span 2;"><div class="rc-label">Basal Insulin Starting Dose</div><div class="rc-value" id="rBasalFlat">—</div></div>
+              <div class="result-cell tag-cyan" style="grid-column:span 2;"><div class="rc-label">Weight-Based Range (0.1&ndash;0.2 units/kg/day)</div><div class="rc-value" id="rBasalWeight">—</div></div>
+            </div>
+          </div>
+          <div class="field-hint">Basal insulin is initiated at 10 units daily OR 0.1&ndash;0.2 units/kg/day.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Adjusting Insulin Regimen</div>
+        <div class="board-card-body">
+          <div class="field-row">
+            <div class="field"><label for="tddInput">Total daily dose (TDD, units)</label><input type="number" id="tddInput"></div>
+            <div class="field"><label for="insulinType">Bolus insulin type</label>
+              <select id="insulinType"><option value="1800">Rapid-acting (rule of 1800/500)</option><option value="1500">Regular (rule of 1500/450)</option></select>
+            </div>
+            <div class="field"><label for="curBG">Current BG (mg/dL)</label><input type="number" id="curBG"></div>
+            <div class="field"><label for="targetBG">Target BG (mg/dL)</label><input type="number" id="targetBG" value="130"></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-primary" id="calcInsulinAdj">Calculate</button></div>
+          <div id="insulinAdjResults">
+            <div class="result-grid" style="margin-top:16px;">
+              <div class="result-cell tag-cyan"><div class="rc-label">Bolus Addition</div><div class="rc-value" id="rBolusAdd">—</div></div>
+              <div class="result-cell tag-cyan"><div class="rc-label">Correction Factor</div><div class="rc-value" id="rCorrFactor">—</div></div>
+              <div class="result-cell tag-cyan"><div class="rc-label">Insulin:Carb Ratio</div><div class="rc-value" id="rCarbRatio">—</div></div>
+              <div class="result-cell tag-cyan"><div class="rc-label">Correction Dose</div><div class="rc-value" id="rCorrDose">—</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Once-Weekly Basal Insulin — Icodec (Awiqli)</div>
+        <div class="board-card-body">
+          <p style="font-size:12.5px;color:var(--text-secondary);margin-top:0;">U-700 formulation. Use only the Awiqli FlexTouch pen — never withdraw into a syringe; do not mix or dilute. Insulin-naive starting dose: 70 units SQ once weekly.</p>
+          <div class="field-row">
+            <div class="field"><label for="curBasalTDD">Current daily basal TDD (units) — if switching</label><input type="number" id="curBasalTDD"></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-primary" id="calcIcodec">Calculate conversion</button></div>
+          <div id="icodecResults">
+            <div class="result-grid" style="margin-top:16px;">
+              <div class="result-cell tag-cyan"><div class="rc-label">Week 1 Dose (one-time)</div><div class="rc-value" id="rIcodecW1">—</div></div>
+              <div class="result-cell tag-cyan"><div class="rc-label">Week 2 Dose</div><div class="rc-value" id="rIcodecW2">—</div></div>
+            </div>
+            <div class="field-hint">Week 3+: titrate from the prior weekly dose based on metabolic needs, BG monitoring, and glycemic goals. Doses in 10-unit increments; max 700 units per injection. First Awiqli dose given the day after the last daily basal dose.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Converting Between Insulins</div>
+        <div class="board-card-body">
+          <p style="font-size:12.5px;color:var(--text-secondary);margin-top:0;">Most insulin conversions are 1:1 (the dose of the new insulin is usually the same as the old insulin). There are two named exceptions below. The new insulin dose may still need adjustment if BG is not controlled.</p>
+          <div class="field-row" style="grid-template-columns:1.5fr 1fr auto;align-items:end;">
+            <div class="field"><label for="convType">Conversion</label>
+              <select id="convType">
+                <option value="1">General conversion (1:1)</option>
+                <option value="0.8-nph">Twice-daily NPH &rarr; once-daily glargine (Lantus/Toujeo) &mdash; use 80%</option>
+                <option value="0.8-toujeo">Toujeo &rarr; another glargine (Lantus/Basaglar) &mdash; use 80%</option>
+              </select>
+            </div>
+            <div class="field"><label for="convDose">Current total daily dose (units)</label><input type="number" id="convDose"></div>
+            <div class="field"><button class="btn btn-primary" type="button" id="calcConv2">Convert</button></div>
+          </div>
+          <div class="result-grid" id="convDoseResults" style="display:none;margin-top:16px;">
+            <div class="result-cell tag-cyan" style="grid-column:span 4;"><div class="rc-label">Converted Dose</div><div class="rc-value" id="rConvDose">—</div></div>
+          </div>
+          <div class="field-hint">Example (NPH&rarr;glargine): NPH 30 units AC breakfast + 20 units AC dinner = 50 units NPH/day &rarr; 50 &times; 0.8 = 40 units glargine once daily.</div>
+        </div>
+      </div>
+
+      <details class="ref">
+        <summary>Type 1 Diabetes insulin initiation reference</summary>
+        <table class="data-table" style="margin-top:12px;">
+          <tr><th>Regimen</th><th>Dosing</th></tr>
+          <tr><td>Total daily dose</td><td>0.4&ndash;1.0 units/kg/day (24&ndash;60 units/day typical)</td></tr>
+          <tr><td>Basal-bolus (long + rapid, 50/50)</td><td>12&ndash;30 units basal daily + 4&ndash;10 units bolus TID with meals</td></tr>
+          <tr><td>NPH + regular (2/3, 1/3)</td><td>16&ndash;40 units NPH BID + 8&ndash;20 units regular BID with meals</td></tr>
+          <tr><td>70/30 (0.5 units/kg/day)</td><td>2/3 in AM + 1/3 in PM, with meals</td></tr>
+        </table>
+      </details>
+    </section>
+
+    <!-- SMBG PANEL -->
+    <section class="panel" id="smbg">
+      <div class="board-card">
+        <div class="board-card-head">SMBG Log</div>
+        <div class="board-card-body">
+          <div class="field-row" style="grid-template-columns:1.3fr 1fr 1fr auto;align-items:end;">
+            <div class="field"><label for="logTime">Time point</label>
+              <select id="logTime">
+                <option>Before Breakfast</option>
+                <option>After Breakfast</option>
+                <option>Before Lunch</option>
+                <option>After Lunch</option>
+                <option>Before Dinner</option>
+                <option>After Dinner</option>
+                <option>Bedtime</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field"><label for="logDate">Date</label><input type="date" id="logDate"></div>
+            <div class="field"><label for="logValue">BG (mg/dL)</label><input type="number" id="logValue" placeholder="e.g. 145"></div>
+            <div class="field"><button class="btn btn-primary" id="addLogBtn" type="button">+ Add reading</button></div>
+          </div>
+          <div class="field-hint">Press Enter in the BG field to add quickly. Readings build up below as you log them — like a running logbook.</div>
+
+          <table class="data-table" style="margin-top:16px;" id="smbgLogTable">
+            <thead><tr><th>Date</th><th>Time point</th><th>BG (mg/dL)</th><th></th></tr></thead>
+            <tbody id="smbgLogBody">
+              <tr id="smbgEmptyRow"><td colspan="4" style="text-align:center;color:var(--text-muted);font-style:italic;">No readings logged yet</td></tr>
+            </tbody>
+          </table>
+
+          <div class="btn-row"><button class="btn btn-ghost" id="resetSMBG">Clear log</button></div>
+
+          <div class="result-grid" id="smbgResults" style="display:none;">
+            <div class="result-cell tag-cyan"><div class="rc-label">Readings logged</div><div class="rc-value" id="rSmbgCount">—</div></div>
+            <div class="result-cell tag-cyan"><div class="rc-label">Overall Average</div><div class="rc-value" id="rSmbgAvg">—</div></div>
+            <div class="result-cell tag-cyan"><div class="rc-label"># Hypoglycemic (&lt;70)</div><div class="rc-value" id="rSmbgHypo">—</div></div>
+            <div class="result-cell tag-cyan"><div class="rc-label"># &gt; 180 mg/dL</div><div class="rc-value" id="rSmbgHyper">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">A1C &harr; Estimated Average Glucose</div>
+        <div class="board-card-body">
+          <div class="field-row">
+            <div class="field"><label for="a1cToEag">A1C (%)</label><input type="number" id="a1cToEag" step="0.1"></div>
+            <div class="field"><label for="eagToA1c">Average glucose (mg/dL)</label><input type="number" id="eagToA1c"></div>
+          </div>
+          <div class="btn-row"><button class="btn btn-primary" id="calcConv">Convert</button></div>
+          <div class="result-grid" id="convResults" style="display:none;margin-top:16px;">
+            <div class="result-cell tag-cyan" style="grid-column:span 2;"><div class="rc-label">Estimated Average Glucose</div><div class="rc-value" id="rEag">—</div></div>
+            <div class="result-cell tag-cyan" style="grid-column:span 2;"><div class="rc-label">Estimated A1C</div><div class="rc-value" id="rA1cFromEag">—</div></div>
+          </div>
+          <div class="field-hint">eAG (mg/dL) = 28.7 &times; A1C &minus; 46.7</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">ADA Blood Sugar Goals</div>
+        <div class="board-card-body">
+          <div class="goals-panel">
+            <div class="gp-cell"><span class="gp-label">A1C</span><span class="gp-value">&lt; 7%</span></div>
+            <div class="gp-cell"><span class="gp-label">Fasting</span><span class="gp-value">80&ndash;130 mg/dL</span></div>
+            <div class="gp-cell"><span class="gp-label">2-hr postprandial</span><span class="gp-value">&lt; 180 mg/dL</span></div>
+            <div class="gp-cell"><span class="gp-label">Hypoglycemia</span><span class="gp-value">&lt; 70 mg/dL</span></div>
+          </div>
+          <div class="reassess-note" style="margin-top:16px;">
+            <b>New for ADA 2026:</b> glycemic/CGM targets are now framed more explicitly around age, frailty, and functional/health status — individualize the &lt;7% goal accordingly, especially in older adults. New perioperative target: A1C &le; 8% before elective surgery; inpatient glucose 100&ndash;180 mg/dL before, during, and after surgery.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+    <!-- MEDICATION REFERENCE PANEL -->
+    <section class="panel" id="medref">
+      <div class="board-card">
+        <div class="board-card-head">GLP-1 / GIP Agonists</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug</th><th>Dosing</th><th>Key Safety / Notes</th></tr>
+            <tr><td><b>Liraglutide</b> (Victoza; <i>Saxenda</i> for weight loss)</td><td>0.6 mg SC daily &times;1wk, &uarr; to 1.2 mg daily. Saxenda max 1.8 mg daily.</td><td>Boxed warning: thyroid C-cell tumors (all except Byetta). &darr;A1C 0.5&ndash;1.5%. Low hypoglycemia risk unless with insulin.</td></tr>
+            <tr><td><b>Dulaglutide</b> (Trulicity)</td><td>0.75 mg SC weekly; max 4.5 mg weekly.</td><td>CVD benefit. Cardiorenal-preferred agent.</td></tr>
+            <tr><td><b>Semaglutide</b> (Ozempic SC; Rybelsus oral; <i>Wegovy</i> for weight loss)</td><td>SC: 0.25 mg weekly &times;4wk &rarr; 0.5 mg weekly, max 2 mg weekly. PO: 3 mg daily &times;30 days &rarr; 7 mg daily, max 14 mg daily.</td><td>CVD benefit (SC). Rybelsus: take &ge;30 min before first food/drink.</td></tr>
+            <tr><td><b>Exenatide</b> (Byetta); <b>Exenatide ER</b> (Bydureon BCise)</td><td>Byetta: 5 mcg SC BID, max 10 mcg BID. ER: 2 mg SC weekly.</td><td>Byetta: give &le;60 min before meals. Exenatide is on the NIOSH hazardous drug list. ER not recommended if eGFR &lt; 45.</td></tr>
+            <tr><td><b>Tirzepatide</b> (Mounjaro; <i>Zepbound</i> for weight loss) &mdash; dual GLP-1/GIP</td><td>2.5 mg SC weekly &times;4wk, &uarr; to 5 mg weekly; max 15 mg weekly.</td><td>Supported for HFpEF (guideline-based, SUMMIT trial). Highest weight-loss efficacy in class.</td></tr>
+          </table>
+          <div class="field-hint">Class boxed warning (except Byetta): risk of thyroid C-cell carcinoma &mdash; avoid with personal/family history of MTC or MEN2. Class warnings: pancreatitis, acute kidney injury, gallbladder disease. All are SC injections except oral semaglutide.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">SGLT2 Inhibitors</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug</th><th>Dosing</th><th>Key Safety / Notes</th></tr>
+            <tr><td><b>Canagliflozin</b> (Invokana)</td><td>100 mg daily before first meal; max 300 mg daily. eGFR 30&ndash;59: max 100 mg daily.</td><td>&uarr; risk of leg/foot amputation (with bexagliflozin) and fractures. Hyperkalemia risk with other K+-raising drugs.</td></tr>
+            <tr><td><b>Dapagliflozin</b> (Farxiga)</td><td>5 mg daily in AM; max 10 mg daily.</td><td>HF + renal benefit.</td></tr>
+            <tr><td><b>Empagliflozin</b> (Jardiance)</td><td>10 mg daily in AM; max 25 mg daily.</td><td>CVD + HF + renal benefit &mdash; broadest benefit profile in class.</td></tr>
+            <tr><td><b>Bexagliflozin</b> (Brenzavvy)</td><td>20 mg daily in AM.</td><td>&uarr; amputation risk (shared with canagliflozin).</td></tr>
+            <tr><td><b>Ertugliflozin</b> (Steglatro)</td><td>5 mg daily in AM; max 15 mg daily.</td><td>&mdash;</td></tr>
+          </table>
+          <div class="field-hint">Class warnings: euglycemic ketoacidosis (can occur with BG &lt; 250; hold 3&ndash;4 days before surgery), genital mycotic infections, urosepsis/pyelonephritis, necrotizing fasciitis of the perineum, hypotension/AKI. Not recommended on dialysis. Most guidelines: use if eGFR &ge; 20. &darr;A1C 0.7&ndash;1%.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Biguanide</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug</th><th>Dosing</th><th>Key Safety / Notes</th></tr>
+            <tr><td><b>Metformin</b> (Glucophage, Fortamet, Glumetza, Riomet)</td><td>IR: 500 mg daily/BID. ER: 500&ndash;1,000 mg daily. Titrate weekly; usual maintenance 1,000 mg BID; max 2,000&ndash;2,550 mg/day (varies by product).</td><td>Boxed warning: lactic acidosis (risk &uarr; with renal impairment, contrast dye, excessive alcohol, hypoxia). Contraindicated eGFR &lt; 30. Not recommended to start eGFR 30&ndash;45. B12 deficiency with long-term use &mdash; check periodically. Hold before iodinated contrast; may restart 48h after if eGFR stable. &darr;A1C 1&ndash;2%, weight neutral, no hypoglycemia.</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Sulfonylureas</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug</th><th>Dosing</th><th>Key Safety / Notes</th></tr>
+            <tr><td><b>Glipizide</b> (Glucotrol XL)</td><td>IR: 5 mg daily, titrate to max 40 mg/day (doses &gt;15 mg divided BID). XL: 5 mg daily, titrate to max 20 mg/day.</td><td>Preferred SU in renal impairment (lower hypoglycemia risk). IR: take 30 min before a meal.</td></tr>
+            <tr><td><b>Glimepiride</b> (Amaryl)</td><td>1&ndash;2 mg daily, titrate to max 8 mg/day.</td><td>&mdash;</td></tr>
+            <tr><td><b>Glyburide</b> / Micronized glyburide (Glynase)</td><td>Glyburide: 2.5&ndash;5 mg daily, max 20 mg/day. Glynase: 1.5&ndash;3 mg daily, max 12 mg/day.</td><td>On the Beers Criteria list &mdash; not recommended in older adults. &uarr; hemolytic anemia risk with G6PD deficiency.</td></tr>
+          </table>
+          <div class="field-hint">Class: contraindicated in sulfa allergy (low cross-reactivity risk), T1D, DKA. Avoid combining with insulin (&uarr;&uarr; hypoglycemia risk). &darr;A1C 1&ndash;2%; efficacy declines with long-term use. Weight gain.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Meglitinides</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug</th><th>Dosing</th><th>Key Safety / Notes</th></tr>
+            <tr><td><b>Repaglinide</b></td><td>0.5&ndash;2 mg 2&ndash;4&times; daily, within 30 min before meals.</td><td>Contraindicated with gemfibrozil (&uarr;&uarr; levels &rarr; hypoglycemia).</td></tr>
+            <tr><td><b>Nateglinide</b></td><td>60&ndash;120 mg up to 3&times; daily, 1&ndash;30 min before meals.</td><td>Skip dose if meal is skipped.</td></tr>
+          </table>
+          <div class="field-hint">Faster onset (15&ndash;60 min), shorter duration than SUs. &darr;A1C 0.5&ndash;1.5%. Avoid with insulin.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">DPP-4 Inhibitors</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug</th><th>Dosing</th><th>Key Safety / Notes</th></tr>
+            <tr><td><b>Sitagliptin</b> (Januvia, Zituvio)</td><td>100 mg daily. eGFR 30&ndash;45: 50 mg daily. eGFR &lt; 30: 25 mg daily.</td><td>&mdash;</td></tr>
+            <tr><td><b>Linagliptin</b> (Tradjenta)</td><td>5 mg daily.</td><td>No renal dose adjustment needed.</td></tr>
+            <tr><td><b>Saxagliptin</b> (Onglyza)</td><td>2.5&ndash;5 mg daily. eGFR &lt; 45: 2.5 mg daily.</td><td>&uarr; HF risk (with alogliptin).</td></tr>
+            <tr><td><b>Alogliptin</b></td><td>25 mg daily. CrCl 30&ndash;59: 12.5 mg daily. CrCl &lt; 30: 6.25 mg daily.</td><td>Hepatotoxicity risk; &uarr; HF risk.</td></tr>
+          </table>
+          <div class="field-hint">Do NOT combine with a GLP-1 agonist (overlapping mechanism). Warnings: pancreatitis, severe arthralgia, acute renal failure, bullous pemphigoid. &darr;A1C 0.5&ndash;0.8%, weight neutral, low hypoglycemia risk.</div>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Thiazolidinediones (TZD)</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug</th><th>Dosing</th><th>Key Safety / Notes</th></tr>
+            <tr><td><b>Pioglitazone</b> (Actos)</td><td>Initial 15&ndash;30 mg daily; max 45 mg daily.</td><td>Boxed warning: can cause/exacerbate HF &mdash; do not use in NYHA Class III/IV HF. Warnings: edema (incl. macular), fracture risk, hepatic failure, can stimulate ovulation (unintended pregnancy), &uarr; bladder cancer risk. Benefit seen in MASH.</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Other Medications (Not Routine First-Line)</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Drug Class</th><th>Notes</th></tr>
+            <tr><td><b>Alpha-Glucosidase Inhibitors</b> (Acarbose, Miglitol)</td><td>Taken with first bite of each meal. Do not cause hypoglycemia alone, but if hypoglycemia occurs from another drug, must treat with glucose tablets/gel (NOT sucrose/table sugar/juice &mdash; these won't work).</td></tr>
+            <tr><td><b>Bile Acid Binding Resin</b> (Colesevelam / Welchol)</td><td>Also indicated for dyslipidemia. Constipation most common side effect; can bind and &darr; absorption of other drugs.</td></tr>
+            <tr><td><b>Dopamine Agonist</b> (Bromocriptine)</td><td>Contraindicated with syncopal migraines and in postpartum/breastfeeding (inhibits lactation).</td></tr>
+            <tr><td><b>Amylin Analog</b> (Pramlintide / Symlin, SC injection)</td><td>Used in T1D or T2D with mealtime insulin. Must reduce mealtime insulin dose by 50% when starting (significant hypoglycemia risk). Contraindicated with gastroparesis.</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Common Combination Products</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Combination</th><th>Brand(s)</th></tr>
+            <tr><td>Metformin + SU</td><td>Metformin/glipizide, Metformin/glyburide</td></tr>
+            <tr><td>Metformin + TZD</td><td>Metformin/pioglitazone (Actoplus Met)</td></tr>
+            <tr><td>Metformin + DPP-4i</td><td>Kazano, Jentadueto, Janumet, Metformin/saxagliptin</td></tr>
+            <tr><td>Metformin + SGLT2i</td><td>Invokamet, Xigduo XR, Synjardy, Segluromet</td></tr>
+            <tr><td>Metformin + SGLT2i + DPP-4i</td><td>Trijardy XR</td></tr>
+            <tr><td>SU + TZD</td><td>Glimepiride/pioglitazone (Duetact)</td></tr>
+            <tr><td>DPP-4i + TZD</td><td>Alogliptin/pioglitazone (Oseni)</td></tr>
+            <tr><td>DPP-4i + SGLT2i</td><td>Glyxambi, Qtern, Steglujan</td></tr>
+            <tr><td>GLP-1 agonist + insulin</td><td>Xultophy (liraglutide/degludec), Soliqua (lixisenatide/glargine)</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="board-card">
+        <div class="board-card-head">Insulin Products</div>
+        <div class="board-card-body">
+          <table class="data-table">
+            <tr><th>Category</th><th>Products</th><th>Onset / Peak / Duration</th></tr>
+            <tr><td>Rapid-acting (bolus)</td><td>Aspart (Novolog, Fiasp), Lispro (Humalog, Admelog, Lyumjev), Glulisine (Apidra)</td><td>~15 min / 1&ndash;2 hr / 3&ndash;5 hr</td></tr>
+            <tr><td>Short-acting (bolus)</td><td>Regular (Humulin R, Novolin R) &mdash; Rx and OTC</td><td>~30 min / ~2 hr / 6&ndash;10 hr</td></tr>
+            <tr><td>Intermediate-acting (basal)</td><td>NPH (Humulin N, Novolin N) &mdash; Rx and OTC, cloudy</td><td>1&ndash;2 hr / 4&ndash;12 hr / 14&ndash;24 hr</td></tr>
+            <tr><td>Long-acting (basal)</td><td>Glargine (Lantus, Toujeo, Basaglar)</td><td>3&ndash;4 hr / peakless / &ge;24 hr</td></tr>
+            <tr><td>Ultra-long-acting (basal)</td><td>Degludec (Tresiba)</td><td>3&ndash;4 hr / peakless / to 42+ hr</td></tr>
+            <tr><td>Concentrated</td><td>Toujeo U-300, Tresiba U-200, Humalog/Lyumjev U-200, Humulin R U-500</td><td>Same profile as U-100 equivalent (except U-500, which lasts up to 24 hr)</td></tr>
+            <tr><td>Premixed 70/30</td><td>70% NPH/30% regular (Humulin 70/30, Novolin 70/30)</td><td>Given BID before breakfast &amp; dinner (30 min prior)</td></tr>
+            <tr><td>Premixed 75/25</td><td>75% lispro protamine/25% lispro (Humalog Mix 75/25)</td><td>Given BID&ndash;TID (15 min before meals)</td></tr>
+            <tr><td>Premixed 50/50</td><td>50% lispro protamine/50% lispro (Humalog Mix 50/50)</td><td>Given BID&ndash;TID (15 min before meals)</td></tr>
+          </table>
+          <div class="field-hint">Once-weekly insulin icodec (Awiqli) &mdash; see the Insulin tab for FDA-verified dosing (approved after this reference was published).</div>
+        </div>
+      </div>
+
+    </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Source: American Diabetes Association. Standards of Care in Diabetes&mdash;2026. <i>Diabetes Care.</i> 2026;49(Suppl 1). Insulin icodec (Awiqli) dosing per FDA prescribing information (DailyMed, revised 3/2026). eGFR: CKD-EPI creatinine equation, applied race-free. This tool does not store or transmit any patient data — all calculations run locally in your browser.<br>
+    Built by Andrew Tran, PharmD &middot; <a href="https://atranpharmd.github.io" target="_blank" rel="noopener">atranpharmd.github.io</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- TAB NAV ----------
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabBtns.forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.panel).classList.add('active');
+    });
+  });
+
+  // ---------- CHECK ITEM TOGGLES ----------
+  document.querySelectorAll('.check-item').forEach(function(item){
+    var cb = item.querySelector('input');
+    item.addEventListener('click', function(e){
+      if(e.target !== cb){ cb.checked = !cb.checked; }
+      item.classList.toggle('checked', cb.checked);
+    });
+  });
+  var flagRow = document.getElementById('flagRow');
+  var catabolicCb = document.getElementById('catabolic');
+  flagRow.addEventListener('click', function(e){
+    if(e.target !== catabolicCb){ catabolicCb.checked = !catabolicCb.checked; }
+    flagRow.classList.toggle('checked', catabolicCb.checked);
+  });
+
+  function getChecked(key){
+    var item = document.querySelector('.check-item[data-key="'+key+'"] input');
+    return item && item.checked;
+  }
+
+  // ---------- PATIENT INFO CALCULATIONS ----------
+  document.getElementById('calcPI').addEventListener('click', function(){
+    var age = parseFloat(document.getElementById('piAge').value);
+    var sex = document.getElementById('piSex').value;
+    var wt = parseFloat(document.getElementById('piWeight').value);
+    var htIn = parseFloat(document.getElementById('piHeight').value);
+    var scr = parseFloat(document.getElementById('piScr').value);
+
+    if(!htIn || !wt){
+      alert('Enter at least weight and height to calculate.');
+      return;
+    }
+
+    var htCm = htIn * 2.54;
+    var htM = htCm / 100;
+
+    // IBW - Devine formula
+    var inchesOver5ft = Math.max(0, htIn - 60);
+    var ibw = sex === 'female' ? (45.5 + 2.3 * inchesOver5ft) : (50 + 2.3 * inchesOver5ft);
+
+    // Adjusted BW (Devine-based adjustment formula, computed unconditionally for reference)
+    var abw = ibw + 0.4 * (wt - ibw);
+
+    // BMI
+    var bmi = wt / (htM * htM);
+
+    // CrCl - Cockcroft-Gault (uses adjusted body weight if obese, else the lesser of actual/ideal)
+    var crclWeight = wt > 1.2 * ibw ? abw : Math.min(wt, ibw);
+    var crcl = null;
+    if(age && scr){
+      crcl = ((140 - age) * crclWeight) / (72 * scr);
+      if(sex === 'female'){ crcl *= 0.85; }
+    }
+
+    // eGFR - CKD-EPI 2009 creatinine equation, applied race-free
+    var egfr = null;
+    if(age && scr){
+      var kappa = sex === 'female' ? 0.7 : 0.9;
+      var alpha = sex === 'female' ? -0.329 : -0.411;
+      var minRatio = Math.min(scr / kappa, 1);
+      var maxRatio = Math.max(scr / kappa, 1);
+      egfr = 141 * Math.pow(minRatio, alpha) * Math.pow(maxRatio, -1.209) * Math.pow(0.993, age);
+      if(sex === 'female'){ egfr *= 1.018; }
+    }
+
+    document.getElementById('rIBW').textContent = ibw.toFixed(1) + ' kg';
+    document.getElementById('rABW').textContent = abw.toFixed(1) + ' kg';
+    document.getElementById('rBMI').textContent = bmi.toFixed(1) + ' kg/m²';
+    document.getElementById('rCrCl').textContent = crcl !== null ? crcl.toFixed(1) + ' mL/min' : 'Enter age + SCr';
+    document.getElementById('rEGFR').textContent = egfr !== null ? egfr.toFixed(1) + ' mL/min/1.73m²' : 'Enter age + SCr';
+    document.getElementById('piResults').style.display = 'grid';
+
+    window._patientWeight = wt;
+  });
+
+  document.getElementById('resetPI').addEventListener('click', function(){
+    ['piAge','piWeight','piHeight','piScr'].forEach(function(id){ document.getElementById(id).value=''; });
+    document.getElementById('piResults').style.display = 'none';
+  });
+
+  // ---------- DM MEDICATIONS ----------
+  var comorbidityData = {
+    ascvd: { label: "ASCVD (established or high risk)", tag:"orange", rec: "GLP-1 RA or SGLT2i with proven CVD benefit", detail: "Consider initiating at or near diagnosis in high-risk patients, independent of metformin use (ADA 2026).", cite: "ADA 2026, Section 9" },
+    hf: { label: "Heart Failure (HFrEF or HFpEF)", tag:"purple", rec: "SGLT2i with HF benefit preferred", detail: "Avoid TZDs and saxagliptin. GLP-1 RA with HF benefit, or GIP/GLP-1 RA (tirzepatide), also supported — particularly for HFpEF, based on SUMMIT trial data (guideline-based, not an FDA cardiovascular-outcome label).", cite: "ADA 2026, Section 9" },
+    ckd: { label: "Chronic Kidney Disease", tag:"teal", rec: "SGLT2i with renal benefit, on maximally tolerated ACEi/ARB", detail: "GLP-1 RA is now also supported in T2DM with CKD (ADA 2026). Consider adding finerenone (nonsteroidal MRA) for persistent albuminuria (UACR ≥ 100 mg/g, eGFR 30–90) as a three-drug cardiorenal approach.", cite: "ADA 2026, Section 9" },
+    obesity: { label: "Obesity / Overweight", tag:"yellow", rec: "GLP-1 RA or GIP/GLP-1 RA (tirzepatide) preferred", detail: "Prioritize the agent with the greatest weight-loss efficacy the patient can access and tolerate (ADA 2026 expanded indication branch).", cite: "ADA 2026, Section 9" },
+    masld: { label: "MASLD / MASH", tag:"pink", rec: "GLP-1 RA or GIP/GLP-1 RA preferred", detail: "Pioglitazone also has evidence in MASH, but weigh against weight-gain and heart-failure risk (ADA 2026 expanded indication branch).", cite: "ADA 2026, Section 9" }
+  };
+
+  document.getElementById('generateBtn').addEventListener('click', function(){
+    var a1c = parseFloat(document.getElementById('a1c').value);
+    var bg = parseFloat(document.getElementById('bg').value);
+    var catabolic = catabolicCb.checked;
+    var html = '';
+    var earlyInsulin = catabolic || (bg && bg > 300) || (a1c && a1c > 10);
+
+    if(earlyInsulin){
+      html += '<div class="result-alert urgent"><b>Consider early insulin initiation.</b> Marked hyperglycemia and/or catabolic signs present. ADA 2026 supports starting insulin early in this setting, often alongside — not instead of — other guideline-preferred agents once stabilized. See the Insulin tab for dosing.</div>';
+    }
+
+    var metforminContra = getChecked('metforminContra');
+    if(!metforminContra){
+      html += '<div class="rec-card" style="border-left-color:var(--cyan-dark);"><span class="chip cyan">Foundational</span><h3>Metformin</h3><p>Recommended as foundational therapy independent of baseline A1C or A1C target (ADA 2026 — unchanged), unless contraindicated or not tolerated.</p><div class="rec-cite">ADA 2026, Section 9</div></div>';
+    } else {
+      html += '<div class="result-alert info">Metformin marked as contraindicated/not tolerated — foundational therapy should be selected from the comorbidity-driven recommendations below instead.</div>';
+    }
+
+    var anySelected = false;
+    Object.keys(comorbidityData).forEach(function(key){
+      if(getChecked(key)){
+        anySelected = true;
+        var d = comorbidityData[key];
+        html += '<div class="rec-card" style="border-left-color:var(--'+d.tag+'-dark);"><span class="chip '+d.tag+'">'+d.label+'</span><h3>'+d.rec+'</h3><p>'+d.detail+'</p><div class="rec-cite">'+d.cite+'</div></div>';
+      }
+    });
+
+    if(!anySelected && !earlyInsulin){
+      html += '<div class="rec-card" style="border-left-color:var(--cyan-dark);"><span class="chip cyan">No cardiorenal risk factors selected</span><h3>Standard first-line approach</h3><p>With no ASCVD, heart failure, CKD, obesity, or MASLD/MASH flagged, proceed with metformin (if not contraindicated) and reassess in 3–6 months. Consider combination pharmacotherapy at initiation if A1C is more than 1.5% above target.</p><div class="rec-cite">ADA 2026, Section 9</div></div>';
+    }
+
+    document.getElementById('resultsBody').innerHTML = html;
+    var resultsEl = document.getElementById('dmResults');
+    resultsEl.classList.add('show');
+    updateAlgoChart(a1c);
+    resultsEl.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  function updateAlgoChart(a1c){
+    var boxMap = { ascvd:'algo-ascvd', hf:'algo-hf', ckd:'algo-ckd', obesity:'algo-weight', masld:'algo-masld' };
+    Object.keys(boxMap).forEach(function(key){
+      var box = document.getElementById(boxMap[key]);
+      box.classList.toggle('hit', !!getChecked(key));
+    });
+    // Glycemic goal box: highlight whenever an A1C was entered (this pathway is in play)
+    var glycemicBox = document.getElementById('algo-glycemic');
+    glycemicBox.classList.toggle('hit', !isNaN(a1c));
+  }
+
+  document.getElementById('resetDM').addEventListener('click', function(){
+    document.getElementById('a1c').value = '';
+    document.getElementById('bg').value = '';
+    catabolicCb.checked = false;
+    flagRow.classList.remove('checked');
+    document.querySelectorAll('#historyGrid .check-item').forEach(function(item){
+      item.querySelector('input').checked = false;
+      item.classList.remove('checked');
+    });
+    document.getElementById('dmResults').classList.remove('show');
+    document.getElementById('resultsBody').innerHTML = '';
+    document.querySelectorAll('.algo-box').forEach(function(box){ box.classList.remove('hit'); });
+  });
+
+  // ---------- INSULIN: INITIATION (T2DM) ----------
+  document.getElementById('calcInsulinInit').addEventListener('click', function(){
+    var wt = parseFloat(document.getElementById('t2Weight').value) || window._patientWeight;
+    if(!wt){ alert('Enter weight (or calculate it on the Patient Info tab first).'); return; }
+    document.getElementById('t2Weight').value = wt;
+    document.getElementById('rBasalFlat').textContent = '10 units daily';
+    var low = (wt * 0.1).toFixed(1);
+    var high = (wt * 0.2).toFixed(1);
+    document.getElementById('rBasalWeight').textContent = low + '–' + high + ' units daily';
+    document.getElementById('insulinInitResults').classList.add('show');
+  });
+
+  // ---------- INSULIN: ADJUSTING REGIMEN ----------
+  document.getElementById('calcInsulinAdj').addEventListener('click', function(){
+    var tdd = parseFloat(document.getElementById('tddInput').value);
+    var type = document.getElementById('insulinType').value; // "1800" rapid or "1500" regular
+    var curBG = parseFloat(document.getElementById('curBG').value);
+    var targetBG = parseFloat(document.getElementById('targetBG').value);
+
+    if(!tdd){ alert('Enter total daily dose (TDD) to calculate.'); return; }
+
+    var bolusAdd = Math.max(4, tdd * 0.10);
+    document.getElementById('rBolusAdd').textContent = bolusAdd.toFixed(1) + ' units/day (or 4 units, whichever greater)';
+
+    var corrConstant = type === '1800' ? 1800 : 1500;
+    var carbConstant = type === '1800' ? 500 : 450;
+    var correctionFactor = corrConstant / tdd;
+    var carbRatio = carbConstant / tdd;
+    document.getElementById('rCorrFactor').textContent = '1 unit lowers BG by ~' + correctionFactor.toFixed(0) + ' mg/dL';
+    document.getElementById('rCarbRatio').textContent = '1 unit per ~' + carbRatio.toFixed(0) + ' g carb';
+
+    if(curBG && targetBG){
+      var corrDose = (curBG - targetBG) / correctionFactor;
+      document.getElementById('rCorrDose').textContent = (corrDose > 0 ? corrDose.toFixed(1) + ' units' : '0 units (at/below target)');
+    } else {
+      document.getElementById('rCorrDose').textContent = 'Enter current + target BG';
+    }
+    document.getElementById('insulinAdjResults').classList.add('show');
+  });
+
+  // ---------- ICODEC CONVERSION ----------
+  document.getElementById('calcIcodec').addEventListener('click', function(){
+    var dailyTDD = parseFloat(document.getElementById('curBasalTDD').value);
+    if(!dailyTDD){ alert('Enter current daily basal TDD to calculate a conversion dose.'); return; }
+    var week1 = Math.round((dailyTDD * 1.5 * 7) / 10) * 10;
+    var week2 = Math.round((dailyTDD * 7) / 10) * 10;
+    document.getElementById('rIcodecW1').textContent = week1 + ' units (one-time)';
+    document.getElementById('rIcodecW2').textContent = week2 + ' units';
+    document.getElementById('icodecResults').classList.add('show');
+  });
+
+  // ---------- GENERAL INSULIN CONVERSION ----------
+  document.getElementById('calcConv2').addEventListener('click', function(){
+    var dose = parseFloat(document.getElementById('convDose').value);
+    if(!dose){ alert('Enter the current total daily dose to convert.'); return; }
+    var type = document.getElementById('convType').value;
+    var factor = parseFloat(type.split('-')[0]);
+    var converted = dose * factor;
+    var label = converted.toFixed(1).replace(/\.0$/, '') + ' units';
+    if(type === '0.8-nph'){ label += ' glargine, once daily'; }
+    else if(type === '0.8-toujeo'){ label += ' of the new glargine product, once daily'; }
+    else { label += ' (1:1)'; }
+    document.getElementById('rConvDose').textContent = label;
+    document.getElementById('convDoseResults').style.display = 'grid';
+  });
+
+  // ---------- SMBG LOGBOOK ----------
+  var smbgLog = [];
+
+  function renderSmbgLog(){
+    var body = document.getElementById('smbgLogBody');
+    if(smbgLog.length === 0){
+      body.innerHTML = '<tr id="smbgEmptyRow"><td colspan="4" style="text-align:center;color:var(--text-muted);font-style:italic;">No readings logged yet</td></tr>';
+      document.getElementById('smbgResults').style.display = 'none';
+      return;
+    }
+    var rows = '';
+    smbgLog.forEach(function(entry, idx){
+      var flagStyle = '';
+      if(entry.value < 70){ flagStyle = 'color:var(--red-dark);font-weight:800;'; }
+      else if(entry.value > 180){ flagStyle = 'color:var(--purple-dark);font-weight:800;'; }
+      rows += '<tr>' +
+        '<td>' + (entry.date || '—') + '</td>' +
+        '<td>' + entry.time + '</td>' +
+        '<td style="' + flagStyle + '">' + entry.value + '</td>' +
+        '<td><button type="button" class="btn btn-ghost" style="padding:4px 10px;font-size:10.5px;" data-del="' + idx + '">Remove</button></td>' +
+        '</tr>';
+    });
+    body.innerHTML = rows;
+
+    body.querySelectorAll('[data-del]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        smbgLog.splice(parseInt(btn.dataset.del, 10), 1);
+        renderSmbgLog();
+      });
+    });
+
+    var values = smbgLog.map(function(e){ return e.value; });
+    var avg = values.reduce(function(a,b){return a+b;},0) / values.length;
+    var hypoCount = values.filter(function(v){return v < 70;}).length;
+    var hyperCount = values.filter(function(v){return v > 180;}).length;
+    document.getElementById('rSmbgCount').textContent = values.length;
+    document.getElementById('rSmbgAvg').textContent = avg.toFixed(0) + ' mg/dL';
+    document.getElementById('rSmbgHypo').textContent = hypoCount;
+    document.getElementById('rSmbgHyper').textContent = hyperCount;
+    document.getElementById('smbgResults').style.display = 'grid';
+  }
+
+  function addSmbgReading(){
+    var time = document.getElementById('logTime').value;
+    var date = document.getElementById('logDate').value;
+    var valueInput = document.getElementById('logValue');
+    var value = parseFloat(valueInput.value);
+    if(isNaN(value)){ alert('Enter a BG value to add a reading.'); return; }
+    smbgLog.push({ time: time, date: date, value: value });
+    valueInput.value = '';
+    valueInput.focus();
+    renderSmbgLog();
+  }
+
+  document.getElementById('addLogBtn').addEventListener('click', addSmbgReading);
+  document.getElementById('logValue').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); addSmbgReading(); }
+  });
+
+  document.getElementById('resetSMBG').addEventListener('click', function(){
+    smbgLog = [];
+    renderSmbgLog();
+  });
+
+  // ---------- A1C / eAG CONVERSION ----------
+  document.getElementById('calcConv').addEventListener('click', function(){
+    var a1cVal = parseFloat(document.getElementById('a1cToEag').value);
+    var eagVal = parseFloat(document.getElementById('eagToA1c').value);
+    var shown = false;
+    if(!isNaN(a1cVal)){
+      var eag = 28.7 * a1cVal - 46.7;
+      document.getElementById('rEag').textContent = eag.toFixed(0) + ' mg/dL';
+      shown = true;
+    } else {
+      document.getElementById('rEag').textContent = '—';
+    }
+    if(!isNaN(eagVal)){
+      var a1cFromEag = (eagVal + 46.7) / 28.7;
+      document.getElementById('rA1cFromEag').textContent = a1cFromEag.toFixed(1) + '%';
+      shown = true;
+    } else {
+      document.getElementById('rA1cFromEag').textContent = '—';
+    }
+    if(shown){ document.getElementById('convResults').style.display = 'grid'; }
+  });
+})();
+</script>
+
+</body>
+</html>
