@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build v87 -->
+<!-- build v89 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -139,6 +139,14 @@
     .timeline-item.timeline-item-edu:hover .timeline-detail{max-height:1000px;}
   }
   .timeline-item.timeline-item-edu.open .timeline-detail{max-height:1000px;}
+
+  /* Job rows: one-line synopsis always visible, details behind a toggle */
+  .timeline-item-job .timeline-synopsis{font-size:13px;color:var(--text-secondary);line-height:1.55;margin:6px 0 0;max-width:62ch;}
+  .timeline-toggle{display:inline-block;font-size:12px;font-weight:600;color:var(--navy);margin-top:6px;cursor:pointer;user-select:none;}
+  .timeline-toggle:hover{text-decoration:underline;}
+  @media (hover:hover){
+    .timeline-item.timeline-item-job:not(.open):hover .timeline-detail{max-height:0;opacity:0;margin-top:0;}
+  }
 
   /* WHAT I DO */
   .pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
@@ -367,10 +375,12 @@
 
     <div class="timeline-wrap">
       <div class="timeline-label">Experience timeline</div>
-      <div class="timeline-hint">Hover or tap a role to see highlights</div>
+      <div class="timeline-hint">Tap &ldquo;Show detail&rdquo; on a role for the specifics</div>
       <ul class="timeline-list">
-        <li class="timeline-item">
-          <div class="timeline-row"><span class="timeline-role">Engage Clinical Pharmacist</span><span class="timeline-meta">&middot; Stellus Rx &middot; Remote &middot; Aug 2026 &ndash; Present</span><span class="timeline-caret">&#9662;</span></div>
+        <li class="timeline-item timeline-item-job">
+          <div class="timeline-row"><span class="timeline-role">Clinical Pharmacist - Engage team</span><span class="timeline-meta">&middot; Stellus Rx &middot; Remote &middot; Aug 2026 &ndash; Present</span></div>
+          <p class="timeline-synopsis">I call patients after a hospital stay or medication change to catch problems early and get their chronic conditions under control, all remotely as part of Stellus Rx's Engage team.</p>
+          <span class="timeline-toggle" role="button" tabindex="0">+ Show detail</span>
           <div class="timeline-detail">
             <ul>
               <li>Provide comprehensive medication management (CMM) through telephonic and virtual/video patient encounters within Stellus Rx's Engage model &mdash; a pharmacist-led program shown across three independent studies (750+ patients per cohort) to reduce total cost of care by $278 PMPM and cut hospital readmissions by 41% &mdash; identifying and resolving drug therapy problems while reconciling medications to support safe transitions of care following hospital discharge.</li>
@@ -379,8 +389,10 @@
             </ul>
           </div>
         </li>
-        <li class="timeline-item">
-          <div class="timeline-row"><span class="timeline-role">Ambulatory Clinical Pharmacist I&ndash;III</span><span class="timeline-meta">&middot; Baylor Scott &amp; White Health &middot; Temple, TX &middot; Jul 2023 &ndash; Mar 2026</span><span class="timeline-caret">&#9662;</span></div>
+        <li class="timeline-item timeline-item-job">
+          <div class="timeline-row"><span class="timeline-role">Ambulatory Clinical Pharmacist I&ndash;III</span><span class="timeline-meta">&middot; Baylor Scott &amp; White Health &middot; Temple, TX &middot; Jul 2023 &ndash; Mar 2026</span></div>
+          <p class="timeline-synopsis">I ran an anticoagulation and chronic disease clinic for ~1,100 patients, adjusting medications under a collaborative practice agreement and writing the clinic's protocols.</p>
+          <span class="timeline-toggle" role="button" tabindex="0">+ Show detail</span>
           <div class="timeline-detail">
             <ul>
               <li>Managed a chronic disease management panel of ~1,100 patients across a 30-mile service radius under a collaborative practice agreement, averaging 40 patient medication interventions daily &mdash; point-of-care visits, peri-operative planning, and discharge follow-up.</li>
@@ -389,8 +401,10 @@
             </ul>
           </div>
         </li>
-        <li class="timeline-item">
-          <div class="timeline-row"><span class="timeline-role">Specialty Clinical Pharmacist</span><span class="timeline-meta">&middot; Ascension Health &middot; Austin, TX &middot; Feb 2022 &ndash; Feb 2023</span><span class="timeline-caret">&#9662;</span></div>
+        <li class="timeline-item timeline-item-job">
+          <div class="timeline-row"><span class="timeline-role">Specialty Clinical Pharmacist</span><span class="timeline-meta">&middot; Ascension Health &middot; Austin, TX &middot; Feb 2022 &ndash; Feb 2023</span></div>
+          <p class="timeline-synopsis">I launched Ascension's specialty pharmacy service in Austin, counseling patients with complex conditions by phone; the program later went national.</p>
+          <span class="timeline-toggle" role="button" tabindex="0">+ Show detail</span>
           <div class="timeline-detail">
             <ul>
               <li>Piloted and launched Ascension's new specialty pharmacy service line in Austin; the protocols and workflows were later adopted nationally across 38 states.</li>
@@ -399,8 +413,10 @@
             </ul>
           </div>
         </li>
-        <li class="timeline-item">
-          <div class="timeline-row"><span class="timeline-role">Ambulatory Care Clinical Pharmacy Specialist</span><span class="timeline-meta">&middot; Parkland Health &amp; Hospital System &middot; Dallas, TX &middot; Feb 2021 &ndash; Feb 2022</span><span class="timeline-caret">&#9662;</span></div>
+        <li class="timeline-item timeline-item-job">
+          <div class="timeline-row"><span class="timeline-role">Ambulatory Care Clinical Pharmacy Specialist</span><span class="timeline-meta">&middot; Parkland Health &amp; Hospital System &middot; Dallas, TX &middot; Feb 2021 &ndash; Feb 2022</span></div>
+          <p class="timeline-synopsis">I managed medications for ~600&ndash;700 primary care patients, starting and adjusting therapy for diabetes, blood pressure, cholesterol, and more.</p>
+          <span class="timeline-toggle" role="button" tabindex="0">+ Show detail</span>
           <div class="timeline-detail">
             <ul>
               <li>Managed a primary care panel of ~600&ndash;700 patients under a collaborative practice agreement spanning 8 providers, independently initiating and titrating therapy for diabetes, hypertension, dyslipidemia, anticoagulation, heart failure, and asthma/COPD.</li>
@@ -409,8 +425,10 @@
             </ul>
           </div>
         </li>
-        <li class="timeline-item">
-          <div class="timeline-row"><span class="timeline-role">Clinical Pharmacist</span><span class="timeline-meta">&middot; Baylor Scott &amp; White Health &middot; Temple, TX &middot; Jul 2019 &ndash; Jan 2021</span><span class="timeline-caret">&#9662;</span></div>
+        <li class="timeline-item timeline-item-job">
+          <div class="timeline-row"><span class="timeline-role">Clinical Pharmacist</span><span class="timeline-meta">&middot; Baylor Scott &amp; White Health &middot; Temple, TX &middot; Jul 2019 &ndash; Jan 2021</span></div>
+          <p class="timeline-synopsis">I worked alongside physicians and nurses in an outpatient clinic, optimizing patients' medications and mentoring pharmacy students and residents.</p>
+          <span class="timeline-toggle" role="button" tabindex="0">+ Show detail</span>
           <div class="timeline-detail">
             <ul>
               <li>Delivered clinical pharmaceutical care to an outpatient clinic population, consulting with nursing and medical staff on medication orders and therapy in accordance with hospital policy.</li>
@@ -418,8 +436,10 @@
             </ul>
           </div>
         </li>
-        <li class="timeline-item">
-          <div class="timeline-row"><span class="timeline-role">PGY-1 Community Pharmacy Resident</span><span class="timeline-meta">&middot; Penobscot Community Health Care (PCHC) &middot; Bangor, ME &middot; Jun 2018 &ndash; Jun 2019</span><span class="timeline-caret">&#9662;</span></div>
+        <li class="timeline-item timeline-item-job">
+          <div class="timeline-row"><span class="timeline-role">PGY-1 Community Pharmacy Resident</span><span class="timeline-meta">&middot; Penobscot Community Health Care (PCHC) &middot; Bangor, ME &middot; Jun 2018 &ndash; Jun 2019</span></div>
+          <p class="timeline-synopsis">I completed a year of residency training, seeing 15&ndash;30 chronic disease patients a day at community health centers and launching a DOAC phone clinic.</p>
+          <span class="timeline-toggle" role="button" tabindex="0">+ Show detail</span>
           <div class="timeline-detail">
             <ul>
               <li>Delivered comprehensive medication management for a chronic disease panel of 15&ndash;30 patients per day across ambulatory rotations at three FQHC sites.</li>
@@ -429,8 +449,10 @@
             <a class="timeline-detail-link" href="#residency">See full residency training &rarr;</a>
           </div>
         </li>
-        <li class="timeline-item">
-          <div class="timeline-row"><span class="timeline-role">Staff Pharmacist</span><span class="timeline-meta">&middot; Walmart Pharmacy &middot; Gatesville, TX &middot; Aug 2017 &ndash; May 2018</span><span class="timeline-caret">&#9662;</span></div>
+        <li class="timeline-item timeline-item-job">
+          <div class="timeline-row"><span class="timeline-role">Staff Pharmacist</span><span class="timeline-meta">&middot; Walmart Pharmacy &middot; Gatesville, TX &middot; Aug 2017 &ndash; May 2018</span></div>
+          <p class="timeline-synopsis">I led a retail pharmacy team filling 1,500&ndash;1,800 prescriptions a week while counseling patients and giving immunizations.</p>
+          <span class="timeline-toggle" role="button" tabindex="0">+ Show detail</span>
           <div class="timeline-detail">
             <ul>
               <li>Led a team of 6 pharmacy technicians in accurately processing and dispensing a weekly volume of 1,500&ndash;1,800 prescriptions, counseling patients on medication use, safety, and healthcare needs.</li>
@@ -958,9 +980,16 @@
 <script>
 (function(){
   document.querySelectorAll('.timeline-item').forEach(function(item){
+    var tog = item.querySelector('.timeline-toggle');
+    function sync(){ if(tog){ tog.textContent = item.classList.contains('open') ? '\u2013 Hide detail' : '+ Show detail'; } }
     item.addEventListener('click', function(e){
+      if(e.target.closest('a')) return;
       item.classList.toggle('open');
+      sync();
     });
+    if(tog){ tog.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); item.classList.toggle('open'); sync(); }
+    }); }
   });
 })();
 </script>
